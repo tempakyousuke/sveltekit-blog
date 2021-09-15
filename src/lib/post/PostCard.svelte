@@ -29,7 +29,7 @@
 			<div>
 				<a href="/" class="flex items-center"
 					><img
-						src="https://avatars.githubusercontent.com/u/15189821?v=4"
+						src="/tmp_profile.jpeg"
 						alt="avatar"
 						class="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
 					/>
