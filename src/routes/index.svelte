@@ -34,7 +34,9 @@
 				</div>
 			</div>
 			{#each posts as post}
-				<PostCard {post} />
+				<div class="mt-6">
+					<PostCard {post} />
+				</div>
 			{/each}
 
 			<div class="mt-8 max-w-4xl mx-auto">
