@@ -3,6 +3,7 @@
 	import Pagination from '$lib/pagination/Pagination.svelte';
 	import AuthorListCard from '$lib/author/AuthorListCard.svelte';
 	import CategoryListCard from '$lib/category/CategoryListCard.svelte';
+	import RecentPostCard from '$lib/recent_post/RecentPostCard.svelte';
 	import type { Post } from '$types/post';
 	import type { User } from '$types/user';
 	import type { Category } from '$types/category';
@@ -81,6 +82,10 @@
 			</div>
 			<div class="max-w-sm mx-auto">
 				<CategoryListCard {categories} />
+			</div>
+			<div class="px-8 mt-10">
+				<h1 class="mb-4 text-xl font-bold text-gray-700">Recent Post</h1>
+				<RecentPostCard  {post} {category} {author}/>
 			</div>
 		</div>
 	</div>
