@@ -1,2 +1,25 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import PostCard from '$lib/post/PostCard.svelte';
+	import type { Post } from '$types/post';
+
+	const post: Post = {
+		id: 'aaaa',
+		title: 'sveltekitでブログ作ってみた',
+		plainBody: 'htmlBodyも用意する予定。マークダウンで編集する。',
+		htmlBody: ''
+	};
+	const posts: Post[] = [];
+	for (let i = 0; i < 10; i++) {
+		posts.push(post);
+	}
+</script>
+
+<svelte:head>
+	<title>トップページ</title>
+</svelte:head>
+
+<div>
+	{#each posts as post}
+		<PostCard {post} />
+	{/each}
+</div>
