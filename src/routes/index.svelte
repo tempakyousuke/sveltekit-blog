@@ -2,8 +2,10 @@
 	import PostCard from '$lib/post/PostCard.svelte';
 	import Pagination from '$lib/pagination/Pagination.svelte';
 	import AuthorsListCard from '$lib/author/AuthorsListCard.svelte';
+	import CategoriesListCard from '$lib/category/CategoriesListCard.svelte';
 	import type { Post } from '$types/post';
 	import type { User } from '$types/user';
+	import type { Category } from '$types/category';
 
 	const post: Post = {
 		id: 'aaaa',
@@ -25,6 +27,15 @@
 	const authors: User[] = [];
 	for (let i = 0; i < 5; i++) {
 		authors.push(author);
+	}
+
+	const category: Category = {
+		id: 'aaa',
+		name: 'Svelte'
+	};
+	const categories: Category[] = [];
+	for (let i = 0; i < 5; i++) {
+		categories.push(category);
 	}
 </script>
 
@@ -64,6 +75,12 @@
 				<div class="max-w-sm mx-auto">
 					<AuthorsListCard {authors} />
 				</div>
+			</div>
+			<div class="px-8 mt-10">
+				<h1 class="mb-4 text-xl font-bold text-gray-700">Categories</h1>
+			</div>
+			<div class="max-w-sm mx-auto">
+				<CategoriesListCard {categories} />
 			</div>
 		</div>
 	</div>
