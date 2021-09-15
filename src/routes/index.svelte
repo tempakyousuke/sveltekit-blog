@@ -85,7 +85,7 @@
 			</div>
 			<div class="px-8 mt-10">
 				<h1 class="mb-4 text-xl font-bold text-gray-700">Recent Post</h1>
-				<RecentPostCard  {post} {category} {author}/>
+				<RecentPostCard {post} {category} {author} />
 			</div>
 		</div>
 	</div>
