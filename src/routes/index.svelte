@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PostCard from '$lib/post/PostCard.svelte';
+	import Pagination from '$lib/pagination/Pagination.svelte';
 	import type { Post } from '$types/post';
 
 	const post: Post = {
@@ -35,6 +36,10 @@
 			{#each posts as post}
 				<PostCard {post} />
 			{/each}
+
+			<div class="mt-8 max-w-4xl mx-auto">
+				<Pagination />
+			</div>
 		</div>
 	</div>
 </div>
