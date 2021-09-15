@@ -1,7 +1,9 @@
 <script lang="ts">
 	import PostCard from '$lib/post/PostCard.svelte';
 	import Pagination from '$lib/pagination/Pagination.svelte';
+	import AuthorsListCard from "$lib/author/AuthorsListCard.svelte"
 	import type { Post } from '$types/post';
+	import type { User } from '$types/user';
 
 	const post: Post = {
 		id: 'aaaa',
@@ -12,6 +14,17 @@
 	const posts: Post[] = [];
 	for (let i = 0; i < 10; i++) {
 		posts.push(post);
+	}
+
+	const author: User = {
+		id: 'aaaa',
+		name: 'tempakyousuke',
+		image: "/tmp_profile.jpeg",
+		postCount: "100"
+	}
+	const authors: User[] = [];
+	for (let i = 0; i < 5; i++) {
+		authors.push(author);
 	}
 </script>
 
@@ -42,6 +55,14 @@
 
 				<div class="mt-8">
 					<Pagination />
+				</div>
+			</div>
+		</div>
+		<div class="hidden w-4/12 -mx-8 lg:block">
+			<div class="px-8">
+				<h1 class="mb-4 text-xl font-bold text-gray-700">Authors</h1>
+				<div class="max-w-sm mx-auto">
+					<AuthorsListCard {authors}/>
 				</div>
 			</div>
 		</div>
