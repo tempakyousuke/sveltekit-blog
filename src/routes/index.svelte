@@ -14,10 +14,7 @@
 		plainBody: 'htmlBodyも用意する予定。マークダウンで編集する。',
 		htmlBody: ''
 	};
-	const posts: Post[] = [];
-	for (let i = 0; i < 10; i++) {
-		posts.push(post);
-	}
+	const posts: Post[] = new Array(10).fill(post);
 
 	const author: User = {
 		id: 'aaaa',
@@ -25,19 +22,13 @@
 		image: '/tmp_profile.jpeg',
 		postCount: '100'
 	};
-	const authors: User[] = [];
-	for (let i = 0; i < 5; i++) {
-		authors.push(author);
-	}
+	const authors: User[] = new Array(5).fill(author);
 
 	const category: Category = {
 		id: 'aaa',
 		name: 'Svelte'
 	};
-	const categories: Category[] = [];
-	for (let i = 0; i < 5; i++) {
-		categories.push(category);
-	}
+	const categories: Category[] = new Array(5).fill(category);
 </script>
 
 <svelte:head>
