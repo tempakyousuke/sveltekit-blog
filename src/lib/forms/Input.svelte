@@ -17,7 +17,7 @@
 			<input bind:value {disabled} {readonly} {placeholder} type="email" />
 		{/if}
 		{#if type == 'password'}
-			<input bind:value {disabled} {readonly} {placeholder} type="password" />
+			<input bind:value {disabled} {readonly} {placeholder} type="password" autocomplete="on" />
 		{/if}
 		<div class="label">
 			{label}
