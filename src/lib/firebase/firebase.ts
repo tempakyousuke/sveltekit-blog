@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-export const firebase = initializeApp(
+initializeApp(
 {
   apiKey: "AIzaSyDdeXpZk37fbzRLB4reVtmhnXNVWVbI0XE",
   authDomain: "blog-893dd.firebaseapp.com",
@@ -14,7 +14,7 @@ export const firebase = initializeApp(
   measurementId: "G-29Q71XY2ZK"
 });
 
-export const auth = getAuth(firebase);
-export const firestore = getFirestore(firebase);
-export const firestorage = getStorage(firebase);
+export const auth = getAuth();
+export const firestore = getFirestore();
+export const firestorage = getStorage();
 
