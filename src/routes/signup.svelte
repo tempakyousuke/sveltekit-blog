@@ -9,7 +9,7 @@
 	let password = '';
 	let name = '';
 
-	const createUser = () => {
+	const signUp = () => {
 		createUserWithEmailAndPassword(auth, email, password)
 			.then(async (userCredential) => {
 				const user = userCredential.user;
@@ -32,7 +32,7 @@
 			<Input bind:value={name} type="email" label="名前" className="mt-2" />
 			<Input bind:value={email} type="email" label="メールアドレス" className="mt-2" />
 			<Input bind:value={password} type="password" label="パスワード" className="mt-2" />
-			<Button block className="mt-5" on:click={createUser}>登録</Button>
+			<Button block className="mt-5" on:click={signUp}>登録</Button>
 		</form>
 	</div>
 </div>
