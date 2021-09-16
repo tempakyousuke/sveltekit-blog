@@ -5,7 +5,13 @@
 </script>
 
 <Header />
-<div class="bg-gray-100">
+<div class="bg-gray-100 body">
 	<slot />
 </div>
 <Footer />
+
+<style>
+	.body {
+		min-height: calc(100vh - 6.5rem);
+	}
+</style>
