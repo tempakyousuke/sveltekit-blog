@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Input from '$lib/forms/Input.svelte';
 	import Button from '$lib/button/Button.svelte';
-	import { auth, db } from '$lib/firebase/firebase';
+	import { auth, db } from '$modules/firebase/firebase';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { doc, setDoc } from 'firebase/firestore';
 
