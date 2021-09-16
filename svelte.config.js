@@ -26,6 +26,9 @@ const config = {
           $types: path.resolve('./types'),
           $modules: path.resolve('./src/modules'),
         }
+      },
+      ssr: {
+        external: ['firebase']
       }
     }
   }
