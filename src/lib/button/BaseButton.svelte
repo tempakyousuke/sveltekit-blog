@@ -7,9 +7,7 @@
 
 	const dispatch = createEventDispatcher();
 	const handleClick = () => {
-		if (!disabled) {
-			dispatch('click');
-		}
+		dispatch('click');
 	};
 </script>
 
@@ -19,6 +17,7 @@
 		class:w-full={block}
 		class:disabled
 		type="button"
+		{disabled}
 		on:click={handleClick}
 	>
 		<slot />
