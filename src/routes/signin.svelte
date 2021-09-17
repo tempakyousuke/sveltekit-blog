@@ -15,7 +15,7 @@
 				// TODO: redirect to maypage
 			})
 			.catch((error) => {
-				console.log(error);
+				console.error(error);
 			});
 	};
 </script>
