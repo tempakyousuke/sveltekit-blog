@@ -23,8 +23,12 @@ const config = {
     vite: {
       resolve: {
         alias: {
-          $types: path.resolve('./types')
+          $types: path.resolve('./types'),
+          $modules: path.resolve('./src/modules'),
         }
+      },
+      ssr: {
+        external: ['firebase']
       }
     }
   }
