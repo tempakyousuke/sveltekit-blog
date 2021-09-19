@@ -1,0 +1,42 @@
+<script lang="ts">
+	import Header from '$lib/header/Header.svelte';
+	import Footer from '$lib/footer/Footer.svelte';
+	import '../../app.postcss';
+	import { auth } from '$modules/firebase/firebase';
+	import { onAuthStateChanged } from 'firebase/auth';
+	import { user } from '$modules/store/store';
+	let loaded = false;
+	let isLoggedIn = false;
+
+	onAuthStateChanged(auth, (firebaseUser) => {
+		if (firebaseUser) {
+			user.set({
+				name: '',
+				isLoggedIn: true
+			});
+		} else {
+			user.set({
+				name: '',
+				isLoggedIn: false
+			});
+		}
+	});
+	user.subscribe((value) => {
+		loaded = true;
+		isLoggedIn = value.isLoggedIn;
+	});
+</script>
+
+<Header />
+{#if loaded && isLoggedIn}
+	<div class="bg-gray-100 body">
+		<slot />
+	</div>
+	<Footer />
+{/if}
+
+<style>
+	.body {
+		min-height: calc(100vh - 6.5rem);
+	}
+</style>
