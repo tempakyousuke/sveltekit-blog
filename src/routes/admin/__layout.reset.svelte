@@ -5,6 +5,8 @@
 	import { auth } from '$modules/firebase/firebase';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { user } from '$modules/store/store';
+	import { goto } from '$app/navigation';
+
 	let loaded = false;
 	let isLoggedIn = false;
 
@@ -22,8 +24,11 @@
 		}
 	});
 	user.subscribe((value) => {
-		loaded = true;
 		isLoggedIn = value.isLoggedIn;
+		if (loaded && !isLoggedIn) {
+			goto('/signin');
+		}
+		loaded = true;
 	});
 </script>
 
