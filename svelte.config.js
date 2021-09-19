@@ -20,6 +20,7 @@ const config = {
       assets: 'build',
       fallback: null
     }),
+    ssr: false,
     vite: {
       resolve: {
         alias: {
