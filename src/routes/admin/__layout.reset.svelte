@@ -10,6 +10,7 @@
 
 	let loaded = false;
 	let isLoggedIn = false;
+	let allowed = false;
 
 	onAuthStateChanged(auth, async (firebaseUser) => {
 		if (firebaseUser) {
@@ -18,18 +19,21 @@
 			user.set({
 				uid: firebaseUser.uid,
 				name: userData.name,
+				allowed: userData.allowed,
 				isLoggedIn: true
 			});
 		} else {
 			user.set({
 				uid: '',
 				name: '',
+				allowed: false,
 				isLoggedIn: false
 			});
 		}
 	});
-	user.subscribe((value) => {
-		isLoggedIn = value.isLoggedIn;
+	user.subscribe((user) => {
+		isLoggedIn = user.isLoggedIn;
+		allowed = user.allowed;
 		if (loaded && !isLoggedIn) {
 			goto('/signin');
 		}
@@ -38,11 +42,13 @@
 </script>
 
 <AdminHeader />
-{#if loaded && isLoggedIn}
+{#if loaded && isLoggedIn && allowed}
 	<div class="bg-gray-100 body">
 		<slot />
 	</div>
 	<Footer />
+{:else}
+	<div>権限がありません</div>
 {/if}
 
 <style>
