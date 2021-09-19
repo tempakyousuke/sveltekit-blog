@@ -2,7 +2,8 @@
 	import AdminHeader from '$lib/header/AdminHeader.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
 	import '../../app.postcss';
-	import { auth } from '$modules/firebase/firebase';
+	import { auth, db } from '$modules/firebase/firebase';
+	import { doc, getDoc } from 'firebase/firestore';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { user } from '$modules/store/store';
 	import { goto } from '$app/navigation';
@@ -10,14 +11,18 @@
 	let loaded = false;
 	let isLoggedIn = false;
 
-	onAuthStateChanged(auth, (firebaseUser) => {
+	onAuthStateChanged(auth, async (firebaseUser) => {
 		if (firebaseUser) {
+			const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+			const userData = userDoc.data();
 			user.set({
-				name: '',
+				uid: firebaseUser.uid,
+				name: userData.name,
 				isLoggedIn: true
 			});
 		} else {
 			user.set({
+				uid: '',
 				name: '',
 				isLoggedIn: false
 			});
