@@ -3,16 +3,15 @@
 	import Button from '$lib/button/Button.svelte';
 	import { auth } from '$modules/firebase/firebase';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
+	import { goto } from '$app/navigation';
 
 	let email = '';
 	let password = '';
 
 	const signIn = () => {
 		signInWithEmailAndPassword(auth, email, password)
-			.then(async (userCredential) => {
-				const user = userCredential.user;
-				console.log(user);
-				// TODO: redirect to maypage
+			.then(() => {
+				goto('/admin');
 			})
 			.catch((error) => {
 				console.error(error);
