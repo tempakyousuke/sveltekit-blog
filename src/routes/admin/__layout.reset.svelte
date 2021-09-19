@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '$lib/header/Header.svelte';
+	import AdminHeader from '$lib/header/AdminHeader.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
 	import '../../app.postcss';
 	import { auth } from '$modules/firebase/firebase';
@@ -27,7 +27,7 @@
 	});
 </script>
 
-<Header />
+<AdminHeader />
 {#if loaded && isLoggedIn}
 	<div class="bg-gray-100 body">
 		<slot />
