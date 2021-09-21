@@ -4,3 +4,10 @@ export interface User {
   image: string;
   postCount: string;
 }
+
+export interface LoginUser {
+  uid: string;
+  name: string;
+  allowed: boolean;
+  isLoggedIn: boolean;
+}
