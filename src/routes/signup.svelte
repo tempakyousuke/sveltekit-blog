@@ -4,6 +4,7 @@
 	import { auth, db } from '$modules/firebase/firebase';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { doc, setDoc } from 'firebase/firestore';
+	import { goto } from '$app/navigation';
 
 	let email = '';
 	let password = '';
@@ -17,7 +18,7 @@
 					name,
 					allowed: false
 				});
-				// TODO: redirect mypage
+				goto('/');
 			})
 			.catch((error) => {
 				console.log(error);
