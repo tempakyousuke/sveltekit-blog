@@ -89,6 +89,7 @@
 				type="email"
 				label="メールアドレス"
 				className="mt-2"
+				error={errors.email}
 				on:input={() => validate('email')}
 			/>
 			<Input
@@ -96,6 +97,7 @@
 				type="password"
 				label="パスワード"
 				className="mt-2"
+				error={errors.password}
 				on:input={() => validate('password')}
 			/>
 			<Button block className="mt-5" on:click={submit}>登録</Button>

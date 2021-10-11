@@ -7,6 +7,7 @@
 	export let type = 'text';
 	export let label = '';
 	export let className = '';
+	export let error = '';
 
 	const dispatch = createEventDispatcher();
 	const handleChange = () => {
@@ -56,6 +57,11 @@
 		<div class="label">
 			{label}
 		</div>
+		{#if error}
+			<p class="text-red-500 text-xs italic">
+				{error}
+			</p>
+		{/if}
 	</div>
 </div>
 

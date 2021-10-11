@@ -73,16 +73,18 @@
 				type="email"
 				label="メールアドレス"
 				className="mt-2"
+				error={errors.email}
 				on:input={() => validate('email')}
 			/>
 			<Input
 				bind:value={values.password}
 				type="password"
 				label="パスワード"
-				className="mt-2"
+				className="mt-6"
+				error={errors.password}
 				on:input={() => validate('password')}
 			/>
-			<Button block className="mt-5" on:click={submit} disabled={hasError}>ログイン</Button>
+			<Button block className="mt-6" on:click={submit} disabled={hasError}>ログイン</Button>
 		</form>
 	</div>
 </div>
