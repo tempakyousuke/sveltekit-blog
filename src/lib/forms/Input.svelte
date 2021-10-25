@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	export let disabled = false;
 	export let readonly = false;
 	export let placeholder = '';
@@ -6,22 +7,61 @@
 	export let type = 'text';
 	export let label = '';
 	export let className = '';
+	export let error = '';
+
+	const dispatch = createEventDispatcher();
+	const handleChange = () => {
+		dispatch('change');
+	};
+
+	const handleInput = () => {
+		dispatch('input');
+	};
 </script>
 
 <div class="flex justify-center items-center {className}">
 	<div class="relative h-10 w-full" class:empty={!placeholder && value === ''}>
 		{#if type == 'text'}
-			<input bind:value {disabled} {readonly} {placeholder} />
+			<input
+				bind:value
+				{disabled}
+				{readonly}
+				{placeholder}
+				on:change={handleChange}
+				on:input={handleInput}
+			/>
 		{/if}
 		{#if type == 'email'}
-			<input bind:value {disabled} {readonly} {placeholder} type="email" />
+			<input
+				bind:value
+				{disabled}
+				{readonly}
+				{placeholder}
+				type="email"
+				on:change={handleChange}
+				on:input={handleInput}
+			/>
 		{/if}
 		{#if type == 'password'}
-			<input bind:value {disabled} {readonly} {placeholder} type="password" autocomplete="on" />
+			<input
+				bind:value
+				{disabled}
+				{readonly}
+				{placeholder}
+				type="password"
+				autocomplete="on"
+				on:change={handleChange}
+				on:input={handleInput}
+			/>
 		{/if}
 		<div class="label">
 			{label}
 		</div>
+		{#if error}
+			<p class="text-red-500 text-xs italic">
+				{error}
+			</p>
+		{/if}
 	</div>
 </div>
 

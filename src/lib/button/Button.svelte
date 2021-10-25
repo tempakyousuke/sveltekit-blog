@@ -15,7 +15,7 @@
 		additionalClass += ' hover:bg-opacity-80';
 	}
 
-	const props = {
+	$: props = {
 		block,
 		disabled,
 		className,
