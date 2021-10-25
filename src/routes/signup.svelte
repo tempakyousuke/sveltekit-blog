@@ -68,7 +68,7 @@
 				goto('/');
 			})
 			.catch((error) => {
-				console.log(error);
+				console.error(error);
 			});
 	};
 </script>
@@ -88,7 +88,7 @@
 				bind:value={values.email}
 				type="email"
 				label="メールアドレス"
-				className="mt-2"
+				className="mt-6"
 				error={errors.email}
 				on:input={() => validate('email')}
 			/>
@@ -96,7 +96,7 @@
 				bind:value={values.password}
 				type="password"
 				label="パスワード"
-				className="mt-2"
+				className="mt-6"
 				error={errors.password}
 				on:input={() => validate('password')}
 			/>
