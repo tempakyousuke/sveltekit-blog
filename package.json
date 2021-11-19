@@ -15,25 +15,25 @@
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "autoprefixer": "^10.3.7",
-    "cssnano": "^5.0.8",
+    "autoprefixer": "^10.4.0",
+    "cssnano": "^5.0.11",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.1",
-    "postcss": "^8.3.9",
+    "postcss": "^8.3.11",
     "postcss-load-config": "^3.1.0",
     "prettier": "~2.4.1",
-    "prettier-plugin-svelte": "^2.4.0",
-    "svelte": "^3.43.1",
-    "svelte-check": "^2.2.7",
+    "prettier-plugin-svelte": "^2.5.0",
+    "svelte": "^3.44.1",
+    "svelte-check": "^2.2.10",
     "svelte-preprocess": "^4.9.8",
-    "tailwindcss": "^2.2.16",
+    "tailwindcss": "^2.2.19",
     "tslib": "^2.3.1",
-    "typescript": "^4.4.3"
+    "typescript": "^4.5.2"
   },
   "type": "module",
   "dependencies": {
-    "firebase": "^9.1.2",
-    "yup": "^0.32.9"
+    "firebase": "^9.5.0",
+    "yup": "^0.32.11"
   }
 }
