@@ -5,6 +5,7 @@
 	import { auth } from '$modules/firebase/firebase';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { goto } from '$app/navigation';
+	import { toast } from '$modules/toast/toast';
 
 	let values = {
 		email: '',
@@ -59,7 +60,7 @@
 				goto('/admin');
 			})
 			.catch((error) => {
-				console.error(error);
+				toast.error(error.message);
 			});
 	};
 </script>

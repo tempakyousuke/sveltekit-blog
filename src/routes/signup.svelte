@@ -6,6 +6,7 @@
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { doc, setDoc } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
+	import { toast } from '$modules/toast/toast';
 
 	let values = {
 		name: '',
@@ -68,7 +69,7 @@
 				goto('/');
 			})
 			.catch((error) => {
-				console.error(error);
+				toast.error(error.message);
 			});
 	};
 </script>
