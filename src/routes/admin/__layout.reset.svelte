@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import AdminHeader from '$lib/header/AdminHeader.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
 	import '../../app.postcss';
@@ -50,6 +51,7 @@
 {:else}
 	<div>権限がありません</div>
 {/if}
+<SvelteToast />
 
 <style>
 	.body {
