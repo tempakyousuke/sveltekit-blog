@@ -36,25 +36,25 @@
 				{error}
 			</p>
 		{/if}
-		<label class="absolute left-2 transition-all bg-white px-1">
+		<div class="label absolute left-2 transition-all bg-white px-1">
 			{label}
-		</label>
+		</div>
 	</div>
 </div>
 
 <style>
-	label {
+	.label {
 		top: 0%;
 		transform: translateY(-50%);
 		font-size: 0.7rem;
 		color: rgba(37, 99, 235, 1);
 	}
-	.empty textarea:not(:focus) + label {
+	.empty textarea:not(:focus) + .label {
 		top: 50%;
 		transform: translateY(-50%);
 		font-size: 1rem;
 	}
-	textarea:not(:focus) + label {
+	textarea:not(:focus) + .label {
 		color: rgba(150, 150, 150, 1);
 	}
 	textarea {
