@@ -35,6 +35,7 @@
   "type": "module",
   "dependencies": {
     "firebase": "^9.6.1",
+    "marked": "^4.0.7",
     "yup": "^0.32.11"
   }
 }
