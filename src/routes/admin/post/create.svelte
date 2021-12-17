@@ -4,6 +4,7 @@
 	import Input from '$lib/forms/Input.svelte';
 	import Textarea from '$lib/forms/Textarea.svelte';
 	import { db } from '$modules/firebase/firebase';
+	import { user } from '$modules/store/store';
 	import { addDoc, collection } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 
@@ -18,6 +19,11 @@
 		plainBody: ''
 	};
 	$: htmlBody = marked.parse(values.plainBody);
+
+	let uid = '';
+	user.subscribe((user) => {
+		uid = user.uid;
+	});
 
 	const schema = yup.object().shape({
 		title: yup.string().required('タイトルは必須です'),
@@ -51,7 +57,8 @@
 	const createPost = async () => {
 		await addDoc(collection(db, 'posts'), {
 			...values,
-			htmlBody
+			htmlBody,
+			uid
 		});
 		goto('/admin');
 	};
