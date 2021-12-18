@@ -19,6 +19,7 @@
 		plainBody: ''
 	};
 	$: htmlBody = marked.parse(values.plainBody);
+	let tab = 'input';
 
 	let uid = '';
 	user.subscribe((user) => {
@@ -70,9 +71,42 @@
 
 <div class="container mx-auto pt-10">
 	<Input bind:value={values.title} label="タイトル" error={errors.title} />
-	<Textarea className="mt-5" bind:value={values.plainBody} label="内容" error={errors.plainBody} />
-	<div>
-		{@html htmlBody}
+	<div class="flex mt-5">
+		<div
+			class="tab"
+			class:active={tab === 'input'}
+			on:click={() => {
+				tab = 'input';
+			}}
+		>
+			入力
+		</div>
+		<div
+			class="tab"
+			class:active={tab === 'preview'}
+			on:click={() => {
+				tab = 'preview';
+			}}
+		>
+			プレビュー
+		</div>
 	</div>
+	{#if tab === 'input'}
+		<Textarea bind:value={values.plainBody} label="内容" error={errors.plainBody} />
+	{:else}
+		<div>
+			{@html htmlBody}
+		</div>
+	{/if}
+
 	<Button on:click={submit}>保存</Button>
 </div>
+
+<style type="text/postcss">
+	.tab {
+		@apply border border-gray-300 cursor-pointer py-2 px-4 rounded-t-md;
+	}
+	.active {
+		@apply border-b-0 text-blue-500;
+	}
+</style>
