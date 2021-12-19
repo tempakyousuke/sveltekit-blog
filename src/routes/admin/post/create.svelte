@@ -31,17 +31,6 @@
 		plainBody: yup.string().required('内容は必須です')
 	});
 
-	const validate = (path: string) => {
-		schema
-			.validateAt(path, values)
-			.then(() => {
-				errors[path] = '';
-			})
-			.catch((err) => {
-				errors[path] = err.message;
-			});
-	};
-
 	const submit = () => {
 		schema
 			.validate(values, { abortEarly: false })
