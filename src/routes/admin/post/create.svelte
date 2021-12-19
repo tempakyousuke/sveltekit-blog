@@ -7,6 +7,7 @@
 	import { user } from '$modules/store/store';
 	import { addDoc, collection } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
+	import TagModal from '$lib/tag/TagModal.svelte';
 
 	import { marked } from 'marked';
 	let values = {
@@ -22,6 +23,7 @@
 	let tab = 'input';
 
 	let uid = '';
+	let openTagModal = false;
 	user.subscribe((user) => {
 		uid = user.uid;
 	});
@@ -60,6 +62,7 @@
 
 <div class="container mx-auto pt-10">
 	<Input bind:value={values.title} label="タイトル" error={errors.title} />
+	<Button className="mt-5" on:click={() => (openTagModal = true)}>タグ追加</Button>
 	<div class="flex mt-5">
 		<div
 			class="tab"
@@ -89,6 +92,7 @@
 	{/if}
 
 	<Button on:click={submit}>保存</Button>
+	<TagModal bind:open={openTagModal} />
 </div>
 
 <style type="text/postcss">
