@@ -22,7 +22,6 @@
 		if (open) {
 			document.addEventListener('keydown', escClicked);
 		} else {
-			this.$emit('closed');
 			document.removeEventListener('keydown', escClicked);
 		}
 	}
