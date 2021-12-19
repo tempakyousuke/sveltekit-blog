@@ -3,23 +3,23 @@
 	import Button from '$lib/button/Button.svelte';
 	import { createEventDispatcher } from 'svelte';
 
-	let value = false;
-	let title = '';
-	let hideOk = false;
-	let okText = 'OK';
-	let hideCancel = false;
-	let cancelText = 'CANCEL';
+	export let open = false;
+	export let title = '';
+	export let hideOk = false;
+	export let okText = 'OK';
+	export let hideCancel = false;
+	export let cancelText = 'CANCEL';
 	const escClicked = (evt: KeyboardEvent) => {
 		let isEscape = false;
 		if ('key' in evt) {
 			isEscape = evt.key === 'Escape' || evt.key === 'Esc';
 		}
 		if (isEscape) {
-			value = false;
+			open = false;
 		}
 	};
 	$: {
-		if (value) {
+		if (open) {
 			document.addEventListener('keydown', escClicked);
 		} else {
 			this.$emit('closed');
@@ -45,8 +45,8 @@
       items-center
       justify-center
     "
-		class:opacity-0={!value}
-		class:pointer-events-none={!value}
+		class:opacity-0={!open}
+		class:pointer-events-none={!open}
 	>
 		<div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" />
 		<div
@@ -76,7 +76,7 @@
           text-white text-sm
           z-50
         "
-				on:click={() => (value = false)}
+				on:click={() => (open = false)}
 			>
 				<svg
 					class="fill-current text-white"
@@ -94,7 +94,7 @@
 				<!-- Title-->
 				<div class="flex justify-between items-center p-4 bg-blue-500 text-white">
 					<p class="text-2xl font-bold">{title}</p>
-					<div class="modal-close cursor-pointer z-50" on:click={() => (value = false)}>
+					<div class="modal-close cursor-pointer z-50" on:click={() => (open = false)}>
 						<svg
 							class="fill-current text-black"
 							xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +127,7 @@
 									v-if="!hideCancel"
 									bg-color="bg-blue-100"
 									block
-									on:click={() => (value = false)}
+									on:click={() => (open = false)}
 								>
 									{cancelText}
 								</Button>
