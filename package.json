@@ -36,6 +36,7 @@
   "type": "module",
   "dependencies": {
     "firebase": "^9.6.1",
+    "klona": "^2.0.5",
     "marked": "^4.0.7",
     "svelte-multiselect": "^1.2.3",
     "yup": "^0.32.11"
