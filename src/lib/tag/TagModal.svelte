@@ -6,11 +6,17 @@
 	let name = '';
 	import { db } from '$modules/firebase/firebase';
 	import { addDoc, collection } from 'firebase/firestore';
+	import { createEventDispatcher } from 'svelte';
 
-	const createTag = () => {
-		addDoc(collection(db, 'tags'), {
+	const dispatch = createEventDispatcher();
+
+	const createTag = async () => {
+		await addDoc(collection(db, 'tags'), {
 			name
 		});
+		open = false;
+		name = '';
+		dispatch('complete');
 	};
 </script>
 
