@@ -21,7 +21,7 @@
 	import Textarea from '$lib/forms/Textarea.svelte';
 	import { db } from '$modules/firebase/firebase';
 	import { user } from '$modules/store/store';
-	import { addDoc, getDocs, collection } from 'firebase/firestore';
+	import { addDoc, getDocs, collection, serverTimestamp } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 	import TagModal from '$lib/tag/TagModal.svelte';
 	import MultiSelect from 'svelte-multiselect';
@@ -70,7 +70,9 @@
 			...values,
 			htmlBody,
 			uid,
-			tags: selectedTags
+			tags: selectedTags,
+			created: serverTimestamp(),
+			modified: serverTimestamp()
 		});
 		goto('/admin');
 	};

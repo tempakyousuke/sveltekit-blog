@@ -5,14 +5,16 @@
 	export let open = false;
 	let name = '';
 	import { db } from '$modules/firebase/firebase';
-	import { addDoc, collection } from 'firebase/firestore';
+	import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
 	const createTag = async () => {
 		await addDoc(collection(db, 'tags'), {
-			name
+			name,
+			created: serverTimestamp(),
+			modified: serverTimestamp()
 		});
 		open = false;
 		name = '';
