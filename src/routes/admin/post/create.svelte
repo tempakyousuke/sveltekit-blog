@@ -1,3 +1,22 @@
+<script context="module">
+	export async function load() {
+		const co = collection(db, 'tags');
+		const snapshots = await getDocs(co);
+		const tags = [];
+		snapshots.forEach((snapshot) => {
+			tags.push({
+				id: snapshot.id,
+				...snapshot.data()
+			});
+		});
+		return {
+			props: {
+				tags
+			}
+		};
+	}
+</script>
+
 <script lang="ts">
 	import * as yup from 'yup';
 	import Button from '$lib/button/Button.svelte';
@@ -5,10 +24,9 @@
 	import Textarea from '$lib/forms/Textarea.svelte';
 	import { db } from '$modules/firebase/firebase';
 	import { user } from '$modules/store/store';
-	import { addDoc, collection } from 'firebase/firestore';
+	import { addDoc, getDocs, collection } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 	import TagModal from '$lib/tag/TagModal.svelte';
-
 	import { marked } from 'marked';
 	let values = {
 		title: '',
@@ -19,6 +37,7 @@
 		title: '',
 		plainBody: ''
 	};
+	let tags = [];
 	$: htmlBody = marked.parse(values.plainBody);
 	let tab = 'input';
 
@@ -54,6 +73,18 @@
 		});
 		goto('/admin');
 	};
+
+	const getTags = async () => {
+		const co = collection(db, 'tags');
+		const snapshots = await getDocs(co);
+		tags = [];
+		snapshots.forEach((snapshot) => {
+			tags.push({
+				id: snapshot.id,
+				...snapshot.data()
+			});
+		});
+	};
 </script>
 
 <svelte:head>
@@ -62,7 +93,9 @@
 
 <div class="container mx-auto pt-10">
 	<Input bind:value={values.title} label="タイトル" error={errors.title} />
-	<Button className="mt-5" on:click={() => (openTagModal = true)}>タグ追加</Button>
+	<div class="mt-5 flex">
+		<Button on:click={() => (openTagModal = true)}>タグ追加</Button>
+	</div>
 	<div class="flex mt-5">
 		<div
 			class="tab"
@@ -92,7 +125,7 @@
 	{/if}
 
 	<Button on:click={submit}>保存</Button>
-	<TagModal bind:open={openTagModal} />
+	<TagModal bind:open={openTagModal} on:complete={getTags} />
 </div>
 
 <style type="text/postcss">
