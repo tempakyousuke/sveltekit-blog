@@ -4,10 +4,7 @@
 		const snapshots = await getDocs(co);
 		const tags = [];
 		snapshots.forEach((snapshot) => {
-			tags.push({
-				id: snapshot.id,
-				...snapshot.data()
-			});
+			tags.push(snapshot.data().name);
 		});
 		return {
 			props: {
@@ -27,7 +24,9 @@
 	import { addDoc, getDocs, collection } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 	import TagModal from '$lib/tag/TagModal.svelte';
+	import MultiSelect from 'svelte-multiselect';
 	import { marked } from 'marked';
+
 	let values = {
 		title: '',
 		plainBody: ''
@@ -37,12 +36,13 @@
 		title: '',
 		plainBody: ''
 	};
-	let tags = [];
+	export let tags: string[] = [];
 	$: htmlBody = marked.parse(values.plainBody);
 	let tab = 'input';
 
 	let uid = '';
 	let openTagModal = false;
+	let selectedTags = [];
 	user.subscribe((user) => {
 		uid = user.uid;
 	});
@@ -69,7 +69,8 @@
 		await addDoc(collection(db, 'posts'), {
 			...values,
 			htmlBody,
-			uid
+			uid,
+			tags: selectedTags
 		});
 		goto('/admin');
 	};
@@ -79,10 +80,7 @@
 		const snapshots = await getDocs(co);
 		tags = [];
 		snapshots.forEach((snapshot) => {
-			tags.push({
-				id: snapshot.id,
-				...snapshot.data()
-			});
+			tags.push(snapshot.data().name);
 		});
 	};
 </script>
@@ -126,6 +124,7 @@
 
 	<Button on:click={submit}>保存</Button>
 	<TagModal bind:open={openTagModal} on:complete={getTags} />
+	<MultiSelect bind:selected={selectedTags} options={tags} />
 </div>
 
 <style type="text/postcss">
