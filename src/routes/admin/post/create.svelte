@@ -19,6 +19,7 @@
 	import Button from '$lib/button/Button.svelte';
 	import Input from '$lib/forms/Input.svelte';
 	import Textarea from '$lib/forms/Textarea.svelte';
+	import Select from '$lib/forms/Select.svelte';
 	import { db } from '$modules/firebase/firebase';
 	import { user } from '$modules/store/store';
 	import { addDoc, getDocs, collection, serverTimestamp } from 'firebase/firestore';
@@ -43,6 +44,13 @@
 	let uid = '';
 	let openTagModal = false;
 	let selectedTags = [];
+	let status = 'public';
+
+	const statusOptions = [
+		{ label: '公開', value: 'public' },
+		{ label: '下書き', value: 'draft' }
+	];
+
 	user.subscribe((user) => {
 		uid = user.uid;
 	});
@@ -71,6 +79,7 @@
 			htmlBody,
 			uid,
 			tags: selectedTags,
+			status: status,
 			created: serverTimestamp(),
 			modified: serverTimestamp()
 		});
@@ -93,8 +102,9 @@
 
 <div class="container mx-auto pt-10">
 	<Input bind:value={values.title} label="タイトル" error={errors.title} />
-	<div class="mt-5 flex">
-		<Button on:click={() => (openTagModal = true)}>タグ追加</Button>
+	<div class="mt-5 flex items-center">
+		<MultiSelect bind:selected={selectedTags} options={tags} />
+		<Button className="ml-2" on:click={() => (openTagModal = true)}>タグ追加</Button>
 	</div>
 	<div class="flex mt-5">
 		<div
@@ -123,10 +133,12 @@
 			{@html htmlBody}
 		</div>
 	{/if}
+	<div>
+		<Select bind:value={status} options={statusOptions} />
+	</div>
 
 	<Button on:click={submit}>保存</Button>
 	<TagModal bind:open={openTagModal} on:complete={getTags} />
-	<MultiSelect bind:selected={selectedTags} options={tags} />
 </div>
 
 <style type="text/postcss">
