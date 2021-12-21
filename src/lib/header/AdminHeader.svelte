@@ -11,9 +11,9 @@
 		<div class="container flex flex-col mx-auto md:flex-row md:items-center md:justify-between">
 			<div class="flex items-center justify-between">
 				<div>
-					<a sveltekit:prefetch href="/" class="text-xl font-bold text-gray-800 md:text-2xl"
-						>Azumaya Blog</a
-					>
+					<a sveltekit:prefetch href="/" class="text-xl font-bold text-gray-800 md:text-2xl">
+						Azumaya Blog
+					</a>
 				</div>
 				<div>
 					<button
@@ -29,6 +29,7 @@
 				</div>
 			</div>
 			<div class="flex-col hidden md:flex md:flex-row md:-mx-4">
+				<a class="hover:text-blue-500" href="/admin/post/create">新規記事</a>
 				<span class="nav-link" on:click={logout}>ログアウト</span>
 			</div>
 		</div>
