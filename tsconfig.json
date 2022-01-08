@@ -35,6 +35,9 @@
 			"$modules/*": [
 				"src/modules/*"
 			],
+			"$model/*": [
+				"src/model/*"
+			],
 			"$types/*": [
 				"types/*"
 			]
