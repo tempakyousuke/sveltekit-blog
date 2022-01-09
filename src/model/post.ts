@@ -58,7 +58,7 @@ export type Post = Exclude<
 >;
 
 export const PostModelFactory = {
-	getList: async (q: Query | null): Promise<PostModel[]> => {
+	getList: async (q: Query | null = null): Promise<PostModel[]> => {
 		const query = q ? q : collection(db, 'posts');
 		const snapshot = await getDocs(query);
 		const posts: PostModel[] = [];
