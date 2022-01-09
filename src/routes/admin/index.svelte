@@ -11,7 +11,6 @@
 		const uid = user.uid;
 		const q = query(collection(db, 'posts'), where('uid', '==', uid));
 		posts = await PostModelFactory.getList(q);
-		console.log(posts);
 	});
 </script>
 
