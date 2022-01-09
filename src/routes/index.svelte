@@ -1,20 +1,29 @@
+<script context="module">
+	export async function load() {
+		const q = query(collection(db, 'posts'), where('status', '==', 'public'));
+		const posts = await PostModelFactory.getList(q);
+		return {
+			props: {
+				posts
+			}
+		};
+	}
+</script>
+
 <script lang="ts">
+	import { PostModelFactory } from '$model/post';
 	import PostCard from '$lib/post/PostCard.svelte';
 	import Pagination from '$lib/pagination/Pagination.svelte';
 	import AuthorListCard from '$lib/author/AuthorListCard.svelte';
 	import CategoryListCard from '$lib/category/CategoryListCard.svelte';
 	import RecentPostCard from '$lib/recent_post/RecentPostCard.svelte';
-	import type { Post } from '$types/post';
+	import type { PostModel } from '$model/post';
 	import type { User } from '$types/user';
 	import type { Category } from '$types/category';
+	import { query, where, collection } from 'firebase/firestore';
+	import { db } from '$modules/firebase/firebase';
 
-	const post: Post = {
-		id: 'aaaa',
-		title: 'sveltekitでブログ作ってみた',
-		plainBody: 'htmlBodyも用意する予定。マークダウンで編集する。',
-		htmlBody: ''
-	};
-	const posts: Post[] = new Array(10).fill(post);
+	export let posts: PostModel[];
 
 	const author: User = {
 		id: 'aaaa',
@@ -76,7 +85,7 @@
 			</div>
 			<div class="px-8 mt-10">
 				<h1 class="mb-4 text-xl font-bold text-gray-700">Recent Post</h1>
-				<RecentPostCard {post} {category} {author} />
+				<RecentPostCard post={posts[0]} {category} {author} />
 			</div>
 		</div>
 	</div>
