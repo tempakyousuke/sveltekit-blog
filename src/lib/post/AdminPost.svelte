@@ -8,7 +8,7 @@
 
 <div class="px-10 py-6 bg-white rounded-lg shadow-md">
 	<div class="flex items-center justify-between">
-		<span class="font-light text-gray-600">Jun 1, 2020</span>
+		<span class="font-light text-gray-600">{post.createdDatetime}</span>
 		{#each post.tags as tag}
 			<a
 				sveltekit:prefetch
