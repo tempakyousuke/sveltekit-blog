@@ -20,11 +20,15 @@
 			return options;
 		}
 	})();
+
 	$: {
 		setOption();
 	}
 
 	const setOption = async () => {
+		if (selectOptions === undefined) {
+			return;
+		}
 		const index = selectOptions.findIndex((v) => {
 			return v.value === value;
 		});
