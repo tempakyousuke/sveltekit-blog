@@ -26,7 +26,7 @@
 			{post.title}</a
 		>
 		<p class="mt-2 text-gray-600">
-			{@html post.htmlBody}
+			{post.beginning}
 		</p>
 	</div>
 </div>

@@ -36,6 +36,11 @@ export class PostModel {
 		this.modified = init.modified;
 	}
 
+	get beginning(): string {
+		const string = this.htmlBody.replace(/(<([^>]+)>)/gi, '');
+		return string.slice(0, 100) + '...';
+	}
+
 	get createdDay(): dayjs.Dayjs {
 		return dayjs(this.created.toDate());
 	}
@@ -68,7 +73,7 @@ export const PostModelFactory = {
 				id: doc.id,
 				...data
 			} as Required<PostModel>;
-			posts.push(post);
+			posts.push(new PostModel(post));
 		});
 		return posts;
 	},
