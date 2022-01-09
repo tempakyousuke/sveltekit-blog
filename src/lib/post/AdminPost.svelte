@@ -24,7 +24,7 @@
 			{post.title}</a
 		>
 		<p class="mt-2 text-gray-600">
-			{post.plainBody}
+			{@html post.htmlBody}
 		</p>
 	</div>
 </div>

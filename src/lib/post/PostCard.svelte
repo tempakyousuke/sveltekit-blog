@@ -26,7 +26,7 @@
 			{post.title}</a
 		>
 		<p class="mt-2 text-gray-600">
-			{post.plainBody}
+			{@html post.htmlBody}
 		</p>
 	</div>
 	<div class="flex items-center justify-between mt-4">
@@ -34,7 +34,7 @@
 		<div>
 			<a href="/author/{author.id}" class="flex items-center"
 				><img
-					src="{author.image}"
+					src={author.image}
 					alt="avatar"
 					class="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
 				/>
