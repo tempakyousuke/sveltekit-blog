@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Post } from '$types/post';
+	import type { PostModel } from '$model/post';
 	import type { User } from '$types/user';
 
-	export let post!: Post;
+	export let post!: PostModel;
 	export let author!: User;
 
 	const postPageLink = `/post/${post.id}`;
@@ -11,11 +11,13 @@
 <div class="px-10 py-6 bg-white rounded-lg shadow-md">
 	<div class="flex items-center justify-between">
 		<span class="font-light text-gray-600">Jun 1, 2020</span>
-		<a
-			sveltekit:prefetch
-			href="/"
-			class="px-2 py-1 font-bold text-gray-100 bg-gray-600 rounded hover:bg-gray-500">Laravel</a
-		>
+		{#each post.tags as tag}
+			<a
+				sveltekit:prefetch
+				href={`/tag/${tag}`}
+				class="px-2 py-1 font-bold text-gray-100 bg-gray-600 rounded hover:bg-gray-500">{tag}</a
+			>
+		{/each}
 	</div>
 	<div class="mt-2">
 		<a
