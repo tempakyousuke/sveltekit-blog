@@ -9,7 +9,7 @@ import {
 	serverTimestamp,
 	deleteDoc
 } from 'firebase/firestore';
-import type { DocumentReference, DocumentData } from 'firebase/firestore';
+import type { DocumentReference, DocumentData, Query } from 'firebase/firestore';
 import { ref, getDownloadURL, deleteObject } from 'firebase/storage';
 import dayjs from 'dayjs';
 
@@ -58,6 +58,20 @@ export type Post = Exclude<
 >;
 
 export const PostModelFactory = {
+	getList: async (q: Query | null): Promise<PostModel[]> => {
+		const query = q ? q : collection(db, 'posts');
+		const snapshot = await getDocs(query);
+		const posts: PostModel[] = [];
+		snapshot.forEach((doc) => {
+			const data = doc.data();
+			const post = {
+				id: doc.id,
+				...data
+			} as Required<PostModel>;
+			posts.push(post);
+		});
+		return posts;
+	},
 	getDoc: async (id: string): Promise<PostModel> => {
 		const postDoc = await getDoc(doc(db, 'posts', id));
 		const post = postDoc.data();
