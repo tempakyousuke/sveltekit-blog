@@ -10,20 +10,24 @@
 
 	let values = {
 		name: '',
+		identifier: '',
 		email: '',
 		password: ''
 	};
 
 	let errors = {
 		name: '',
+		identifier: '',
 		email: '',
 		password: ''
 	};
 
-	$: hasError = errors.name !== '' || errors.email !== '' || errors.password !== '';
+	$: hasError =
+		errors.name !== '' || errors.identifier !== '' || errors.email !== '' || errors.password !== '';
 
 	const schema = yup.object().shape({
 		name: yup.string().required('名前は必須です'),
+		identifier: yup.string().required('識別子は必須です'),
 		email: yup
 			.string()
 			.required('メールアドレスは必須です')
@@ -64,6 +68,7 @@
 				const user = userCredential.user;
 				await setDoc(doc(db, 'users', user.uid), {
 					name: values.name,
+					identifier: values.identifier,
 					allowed: false
 				});
 				goto('/');
@@ -80,10 +85,17 @@
 		<form>
 			<Input
 				bind:value={values.name}
-				type="email"
 				label="名前"
 				className="mt-2"
+				error={errors.name}
 				on:input={() => validate('name')}
+			/>
+			<Input
+				bind:value={values.identifier}
+				label="識別子(アルファベット、URL用)"
+				className="mt-6"
+				error={errors.identifier}
+				on:input={() => validate('identifier')}
 			/>
 			<Input
 				bind:value={values.email}
