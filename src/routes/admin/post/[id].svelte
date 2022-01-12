@@ -25,16 +25,14 @@
 	import Select from '$lib/forms/Select.svelte';
 	import { db } from '$modules/firebase/firebase';
 	import { user } from '$modules/store/store';
-	import { updateDoc, doc, getDocs, collection, serverTimestamp } from 'firebase/firestore';
+	import { getDocs, collection } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 	import TagModal from '$lib/tag/TagModal.svelte';
 	import MultiSelect from 'svelte-multiselect';
 	import { marked } from 'marked';
 	import { PostModelFactory } from '$model/post';
-	import { klona } from 'klona';
 
 	export let post;
-	console.log(post);
 	let values = {
 		title: post.title,
 		plainBody: post.plainBody
@@ -70,7 +68,7 @@
 		schema
 			.validate(values, { abortEarly: false })
 			.then(() => {
-				createPost();
+				updatePost();
 			})
 			.catch((err) => {
 				err.inner.forEach((error) => {
@@ -79,15 +77,13 @@
 			});
 	};
 
-	const createPost = async () => {
-		await updateDoc(doc(db, 'posts', post.id), {
+	const updatePost = async () => {
+		await post.update({
 			...values,
 			htmlBody,
 			uid,
 			tags: selectedTags,
-			status: status,
-			created: serverTimestamp(),
-			modified: serverTimestamp()
+			status: status
 		});
 		goto('/admin');
 	};

@@ -12,6 +12,7 @@ import {
 import type { DocumentReference, DocumentData, Query } from 'firebase/firestore';
 import { ref, getDownloadURL, deleteObject } from 'firebase/storage';
 import dayjs from 'dayjs';
+import { UserModelFactory } from '$model/user';
 
 export class PostModel {
 	id: string;
@@ -20,9 +21,10 @@ export class PostModel {
 	htmlBody: string;
 	uid: string;
 	tags: string[];
-	status: string[];
+	status: string;
 	created: Timestamp;
 	modified: Timestamp;
+	firstPosted?: Timestamp;
 
 	constructor(init: Required<PostModel>) {
 		this.id = init.id;
@@ -32,6 +34,7 @@ export class PostModel {
 		this.uid = init.uid;
 		this.tags = init.tags;
 		this.status = init.status;
+		this.firstPosted = init.firstPosted ?? null;
 		this.created = init.created;
 		this.modified = init.modified;
 	}
@@ -49,9 +52,21 @@ export class PostModel {
 		return this.createdDay.format('YYYY-MM-DD HH:mm');
 	}
 
-	update(post: Post): Promise<void> {
-		return updateDoc(doc(db, 'posts', this.id), {
-			...post,
+	async update(post: Post): Promise<void> {
+		const data: any = post;
+		if (this.firstPosted === null && post.status === 'public') {
+			data.firstPosted = serverTimestamp();
+		}
+		if (this.status !== post.status) {
+			const user = await UserModelFactory.getDoc(this.uid);
+			if (post.status === 'public') {
+				user.increaseCount();
+			} else {
+				user.decreaseCount();
+			}
+		}
+		await updateDoc(doc(db, 'posts', this.id), {
+			...data,
 			modified: serverTimestamp()
 		});
 	}
