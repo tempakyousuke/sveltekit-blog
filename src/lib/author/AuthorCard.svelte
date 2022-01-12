@@ -8,7 +8,7 @@
 	<img
 		src={author.imageUrl}
 		alt={author.name}
-		class="object-cover w-48 h-48 rounded-full mx-auto"
+		class="object-cover w-64 h-64 rounded-full mx-auto"
 	/>
 	<div class="mt-4 text-xl">{author.name}</div>
 	<div class="mt-4 whitespace-pre-wrap">{author.introduction}</div>
