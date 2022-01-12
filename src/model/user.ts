@@ -16,7 +16,7 @@ import dayjs from 'dayjs';
 export class UserModel {
 	id: string;
 	name: string;
-	identifire: string;
+	identifier: string;
 	imagePath: string;
 	introduction: string;
 	imageUrl: string;
@@ -28,7 +28,7 @@ export class UserModel {
 	constructor(init: Required<UserModel>) {
 		this.id = init.id;
 		this.name = init.name;
-		this.identifire = init.identifire;
+		this.identifier = init.identifier;
 		this.imagePath = init.imagePath;
 		this.introduction = init.introduction;
 		this.postCount = init.postCount;
