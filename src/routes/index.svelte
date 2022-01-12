@@ -1,10 +1,14 @@
 <script context="module">
 	export async function load() {
 		const q = query(collection(db, 'posts'), where('status', '==', 'public'));
+		const qu = query(collection(db, 'users'), where('allowed', '==', true));
+
+		const authors = await UserModelFactory.getList(qu);
 		const posts = await PostModelFactory.getList(q);
 		return {
 			props: {
-				posts
+				posts,
+				authors
 			}
 		};
 	}
@@ -12,32 +16,32 @@
 
 <script lang="ts">
 	import { PostModelFactory } from '$model/post';
+	import { UserModelFactory } from '$model/user';
 	import PostCard from '$lib/post/PostCard.svelte';
 	import Pagination from '$lib/pagination/Pagination.svelte';
 	import AuthorListCard from '$lib/author/AuthorListCard.svelte';
 	import CategoryListCard from '$lib/category/CategoryListCard.svelte';
 	import RecentPostCard from '$lib/recent_post/RecentPostCard.svelte';
 	import type { PostModel } from '$model/post';
-	import type { User } from '$types/user';
+	import type { UserModel } from '$model/user';
 	import type { Category } from '$types/category';
 	import { query, where, collection } from 'firebase/firestore';
 	import { db } from '$modules/firebase/firebase';
 
 	export let posts: PostModel[];
-
-	const author: User = {
-		id: 'aaaa',
-		name: 'tempakyousuke',
-		image: '/tmp_profile.jpeg',
-		postCount: '100'
-	};
-	const authors: User[] = new Array(5).fill(author);
+	export let authors: UserModel[];
 
 	const category: Category = {
 		id: 'aaa',
 		name: 'Svelte'
 	};
 	const categories: Category[] = new Array(5).fill(category);
+
+	const getAuthor = (id: string) => {
+		console.log(authors[0]);
+
+		return authors.find((author) => author.id == id);
+	};
 </script>
 
 <svelte:head>
@@ -61,7 +65,7 @@
 				</div>
 				{#each posts as post}
 					<div class="mt-6">
-						<PostCard {post} {author} />
+						<PostCard {post} author={getAuthor(post.uid)} />
 					</div>
 				{/each}
 
@@ -85,7 +89,7 @@
 			</div>
 			<div class="px-8 mt-10">
 				<h1 class="mb-4 text-xl font-bold text-gray-700">Recent Post</h1>
-				<RecentPostCard post={posts[0]} {category} {author} />
+				<RecentPostCard post={posts[0]} {category} author={authors[0]} />
 			</div>
 		</div>
 	</div>

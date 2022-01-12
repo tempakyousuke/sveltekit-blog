@@ -20,7 +20,6 @@ export class UserModel {
 	imagePath: string;
 	introduction: string;
 	imageUrl: string;
-	imagePromise: Promise<void>;
 	postCount: number;
 	created: Timestamp;
 	modified: Timestamp;
@@ -34,9 +33,7 @@ export class UserModel {
 		this.postCount = init.postCount;
 		this.created = init.created;
 		this.modified = init.modified;
-		this.imagePromise = getDownloadURL(ref(firestorage, this.imagePath)).then((src) => {
-			this.imageUrl = src;
-		});
+		this.imageUrl = init.imageUrl;
 	}
 
 	get createdDay(): dayjs.Dayjs {
@@ -76,23 +73,30 @@ export const UserModelFactory = {
 	getList: async (q: Query | null = null): Promise<UserModel[]> => {
 		const query = q ? q : collection(db, 'users');
 		const snapshot = await getDocs(query);
-		const users: UserModel[] = [];
+		const promises: Promise<UserModel>[] = [];
 		snapshot.forEach((doc) => {
-			const data = doc.data();
-			const post = {
-				id: doc.id,
-				...data
-			} as Required<UserModel>;
-			users.push(new UserModel(post));
+			const promise = (async () => {
+				const data = doc.data();
+				const imageUrl = await getDownloadURL(ref(firestorage, data.imagePath));
+				const post = {
+					id: doc.id,
+					imageUrl,
+					...data
+				} as Required<UserModel>;
+				return new UserModel(post);
+			})();
+			promises.push(promise);
 		});
-		return users;
+		return Promise.all(promises);
 	},
 	getDoc: async (id: string): Promise<UserModel> => {
 		const postDoc = await getDoc(doc(db, 'users', id));
 		const post = postDoc.data();
+		const imageUrl = await getDownloadURL(ref(firestorage, post.imagePath));
 
 		const data = {
 			id,
+			imageUrl,
 			...post
 		} as Required<UserModel>;
 		return new UserModel(data);
