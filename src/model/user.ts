@@ -21,6 +21,7 @@ export class UserModel {
 	introduction: string;
 	imageUrl: string;
 	imagePromise: Promise<void>;
+	postCount: number;
 	created: Timestamp;
 	modified: Timestamp;
 
@@ -30,6 +31,7 @@ export class UserModel {
 		this.identifire = init.identifire;
 		this.imagePath = init.imagePath;
 		this.introduction = init.introduction;
+		this.postCount = init.postCount;
 		this.created = init.created;
 		this.modified = init.modified;
 		this.imagePromise = getDownloadURL(ref(firestorage, this.imagePath)).then((src) => {
@@ -45,7 +47,19 @@ export class UserModel {
 		return this.createdDay.format('YYYY-MM-DD HH:mm');
 	}
 
-	update(user: User): Promise<void> {
+	increaseCount() {
+		this.update({
+			postCount: this.postCount + 1
+		});
+	}
+
+	decreaseCount() {
+		this.update({
+			postCount: this.postCount - 1
+		});
+	}
+
+	update(user: Partial<UserModel>): Promise<void> {
 		return updateDoc(doc(db, 'users', this.id), {
 			...user,
 			modified: serverTimestamp()
