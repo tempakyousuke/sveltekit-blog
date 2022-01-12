@@ -75,7 +75,7 @@
 	};
 
 	const createPost = async () => {
-		await addDoc(collection(db, 'posts'), {
+		const data: any = {
 			...values,
 			htmlBody,
 			uid,
@@ -83,11 +83,13 @@
 			status: status,
 			created: serverTimestamp(),
 			modified: serverTimestamp()
-		});
+		};
 		if (status === 'public') {
+			data.firstPosted = serverTimestamp();
 			const user = await UserModelFactory.getDoc(uid);
 			user.increaseCount();
 		}
+		await addDoc(collection(db, 'posts'), data);
 		goto('/admin');
 	};
 

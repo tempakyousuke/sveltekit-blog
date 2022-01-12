@@ -53,6 +53,10 @@ export class PostModel {
 	}
 
 	async update(post: Post): Promise<void> {
+		const data: any = post;
+		if (this.firstPosted === null && post.status === 'public') {
+			data.firstPosted = serverTimestamp();
+		}
 		if (this.status !== post.status) {
 			const user = await UserModelFactory.getDoc(this.uid);
 			if (post.status === 'public') {
@@ -62,7 +66,7 @@ export class PostModel {
 			}
 		}
 		await updateDoc(doc(db, 'posts', this.id), {
-			...post,
+			...data,
 			modified: serverTimestamp()
 		});
 	}
