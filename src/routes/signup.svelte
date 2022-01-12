@@ -69,6 +69,7 @@
 				await setDoc(doc(db, 'users', user.uid), {
 					name: values.name,
 					identifier: values.identifier,
+					postCount: 0,
 					allowed: false
 				});
 				goto('/');
