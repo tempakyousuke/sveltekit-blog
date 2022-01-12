@@ -1,0 +1,66 @@
+<script lang="ts">
+	import Button from '$lib/button/Button.svelte';
+	import Input from '$lib/forms/Input.svelte';
+	import Textarea from '$lib/forms/Textarea.svelte';
+
+	import * as yup from 'yup';
+	import { user } from '$modules/store/store';
+	import { doc, getDoc, updateDoc } from 'firebase/firestore';
+	import { db } from '$modules/firebase/firebase';
+	import { goto } from '$app/navigation';
+
+	const schema = yup.object().shape({
+		name: yup.string().required('名前は必須です'),
+		introduction: yup.string().required('紹介文は必須です')
+	});
+
+	let uid = '';
+
+	let values = {
+		name: '',
+		introduction: ''
+	};
+
+	let errors = {
+		name: '',
+		introduction: ''
+	};
+
+	const submit = () => {
+		schema
+			.validate(values, { abortEarly: false })
+			.then(() => {
+				updateUser();
+			})
+			.catch((err) => {
+				err.inner.forEach((error) => {
+					errors[error.path] = error.message;
+				});
+			});
+	};
+
+	const updateUser = async () => {
+		console.log(uid);
+		console.log({ ...values });
+		await updateDoc(doc(db, 'users', uid), { ...values });
+		goto('/admin');
+	};
+
+	user.subscribe(async (user) => {
+		uid = user.uid;
+		const author = (await getDoc(doc(db, 'users', uid))).data();
+		values.name = author.name;
+		values.introduction = author.introduction;
+	});
+</script>
+
+<div class="container mx-auto pt-10">
+	<Input bind:value={values.name} label="名前" error={errors.name} />
+	<Textarea
+		className="mt-6"
+		bind:value={values.introduction}
+		label="自己紹介"
+		error={errors.introduction}
+	/>
+	<Button className="mt-6" on:click={submit}>更新</Button>
+</div>
