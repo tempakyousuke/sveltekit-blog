@@ -27,11 +27,17 @@
 	import { query, where, collection, orderBy } from 'firebase/firestore';
 	import { db } from '$modules/firebase/firebase';
 	import AuthorCard from '$lib/author/AuthorCard.svelte';
+	import PostCard from '$lib/post/PostCard.svelte';
 
 	export let posts: PostModel[];
 	export let author: UserModel;
 </script>
 
-<div class="pt-16">
+<div class="pt-16 max-w-xl mx-auto">
 	<AuthorCard {author} className="max-w-lg mx-auto" />
+	{#each posts as post}
+		<div class="mt-6">
+			<PostCard {post} {author} />
+		</div>
+	{/each}
 </div>

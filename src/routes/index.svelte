@@ -38,8 +38,6 @@
 	const categories: Category[] = new Array(5).fill(category);
 
 	const getAuthor = (id: string) => {
-		console.log(authors[0]);
-
 		return authors.find((author) => author.id == id);
 	};
 </script>
