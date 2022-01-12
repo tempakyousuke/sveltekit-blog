@@ -1,6 +1,7 @@
 <script type="ts">
 	export let defaultImage = '';
-	export let files;
+	export let file;
+	let files;
 	let input;
 	let pickedImage = '';
 
@@ -18,6 +19,7 @@
 				pickedImage = fileReader.result as string;
 			};
 			fileReader.readAsDataURL(files[0]);
+			file = files[0];
 		}
 	}
 	$: previewImage = (() => {

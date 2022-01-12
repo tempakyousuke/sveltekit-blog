@@ -2,12 +2,20 @@
 	import Button from '$lib/button/Button.svelte';
 	import Input from '$lib/forms/Input.svelte';
 	import Textarea from '$lib/forms/Textarea.svelte';
+	import ImagePicker from '$lib/forms/Image.svelte';
 
 	import * as yup from 'yup';
 	import { user } from '$modules/store/store';
 	import { doc, getDoc, updateDoc } from 'firebase/firestore';
-	import { db } from '$modules/firebase/firebase';
+	import { ref, uploadBytes } from 'firebase/storage';
+	import { db, firestorage } from '$modules/firebase/firebase';
 	import { goto } from '$app/navigation';
+
+	type UploadData = {
+		name: string;
+		introduction: string;
+		imagePath?: string;
+	};
 
 	const schema = yup.object().shape({
 		name: yup.string().required('名前は必須です'),
@@ -15,6 +23,7 @@
 	});
 
 	let uid = '';
+	let image;
 
 	let values = {
 		name: '',
@@ -40,9 +49,15 @@
 	};
 
 	const updateUser = async () => {
-		console.log(uid);
-		console.log({ ...values });
-		await updateDoc(doc(db, 'users', uid), { ...values });
+		const data: UploadData = { ...values };
+		if (image !== undefined) {
+			const imagePath = `/users/${uid}/${image.name}`;
+			const upRef = ref(firestorage, imagePath);
+			await uploadBytes(upRef, image);
+			data.imagePath = imagePath;
+		}
+
+		await updateDoc(doc(db, 'users', uid), data);
 		goto('/admin');
 	};
 
@@ -55,7 +70,8 @@
 </script>
 
 <div class="container mx-auto pt-10">
-	<Input bind:value={values.name} label="名前" error={errors.name} />
+	<ImagePicker bind:file={image} />
+	<Input className="mt-6" bind:value={values.name} label="名前" error={errors.name} />
 	<Textarea
 		className="mt-6"
 		bind:value={values.introduction}
