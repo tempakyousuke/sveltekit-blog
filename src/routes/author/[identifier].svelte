@@ -33,8 +33,8 @@
 	export let author: UserModel;
 </script>
 
-<div class="pt-16 max-w-xl mx-auto">
-	<AuthorCard {author} className="max-w-lg mx-auto" />
+<div class="mx-auto">
+	<AuthorCard {author} />
 	{#each posts as post}
 		<div class="mt-6">
 			<PostCard {post} {author} />
