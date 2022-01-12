@@ -27,6 +27,7 @@
 	import TagModal from '$lib/tag/TagModal.svelte';
 	import MultiSelect from 'svelte-multiselect';
 	import { marked } from 'marked';
+	import { UserModelFactory } from '$model/user';
 
 	let values = {
 		title: '',
@@ -83,6 +84,10 @@
 			created: serverTimestamp(),
 			modified: serverTimestamp()
 		});
+		if (status === 'public') {
+			const user = await UserModelFactory.getDoc(uid);
+			user.increaseCount();
+		}
 		goto('/admin');
 	};
 
