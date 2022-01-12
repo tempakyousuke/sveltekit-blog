@@ -10,6 +10,8 @@
 	import { ref, uploadBytes } from 'firebase/storage';
 	import { db, firestorage } from '$modules/firebase/firebase';
 	import { goto } from '$app/navigation';
+	import { UserModelFactory } from '$model/user';
+	import type { UserModel } from '$model/user';
 
 	type UploadData = {
 		name: string;
@@ -24,6 +26,8 @@
 
 	let uid = '';
 	let image;
+	let author: UserModel;
+	let defaultImage = '';
 
 	let values = {
 		name: '',
@@ -63,14 +67,16 @@
 
 	user.subscribe(async (user) => {
 		uid = user.uid;
-		const author = (await getDoc(doc(db, 'users', uid))).data();
+		const author = await UserModelFactory.getDoc(uid);
 		values.name = author.name;
 		values.introduction = author.introduction;
+		await author.imagePromise;
+		defaultImage = author.imageUrl;
 	});
 </script>
 
 <div class="container mx-auto pt-10">
-	<ImagePicker bind:file={image} />
+	<ImagePicker bind:file={image} {defaultImage} />
 	<Input className="mt-6" bind:value={values.name} label="名前" error={errors.name} />
 	<Textarea
 		className="mt-6"

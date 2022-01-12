@@ -20,6 +20,7 @@ export class UserModel {
 	imagePath: string;
 	introduction: string;
 	imageUrl: string;
+	imagePromise: Promise<void>;
 	created: Timestamp;
 	modified: Timestamp;
 
@@ -31,7 +32,7 @@ export class UserModel {
 		this.introduction = init.introduction;
 		this.created = init.created;
 		this.modified = init.modified;
-		getDownloadURL(ref(firestorage, this.imagePath)).then((src) => {
+		this.imagePromise = getDownloadURL(ref(firestorage, this.imagePath)).then((src) => {
 			this.imageUrl = src;
 		});
 	}
