@@ -31,6 +31,7 @@
 			<div class="flex-col hidden md:flex md:flex-row md:-mx-4">
 				<a class="nav-link" href="/admin/">管理画面トップ</a>
 				<a class="nav-link" href="/admin/post/create">新規記事</a>
+				<a class="nav-link" href="/admin/profile">プロフィール</a>
 				<span class="nav-link" on:click={logout}>ログアウト</span>
 			</div>
 		</div>
