@@ -22,6 +22,8 @@
 </script>
 
 <script lang="ts">
+	import '../app.postcss';
+	import '../markdown.css';
 	import 'highlight.js/styles/github-dark.css';
 	import { PostModelFactory } from '$model/post';
 	import { UserModelFactory } from '$model/user';
@@ -30,7 +32,6 @@
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { query, where, collection, getDocs, limit } from 'firebase/firestore';
 	import { db } from '$modules/firebase/firebase';
-	import '../app.postcss';
 	import type { PostModel } from '$model/post';
 	import type { UserModel } from '$model/user';
 	import AuthorListCard from '$lib/author/AuthorListCard.svelte';

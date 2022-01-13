@@ -1,9 +1,10 @@
 <script lang="ts">
+	import '../../app.postcss';
+	import '../markdown.css';
 	import 'highlight.js/styles/github-dark.css';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import AdminHeader from '$lib/header/AdminHeader.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
-	import '../../app.postcss';
 	import { auth, db } from '$modules/firebase/firebase';
 	import { doc, getDoc } from 'firebase/firestore';
 	import { onAuthStateChanged } from 'firebase/auth';
