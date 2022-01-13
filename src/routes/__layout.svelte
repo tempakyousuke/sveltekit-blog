@@ -32,7 +32,7 @@
 	import type { PostModel } from '$model/post';
 	import type { UserModel } from '$model/user';
 	import AuthorListCard from '$lib/author/AuthorListCard.svelte';
-	import CategoryListCard from '$lib/category/CategoryListCard.svelte';
+	import TagListCard from '$lib/tag/TagListCard.svelte';
 	import RecentPostCard from '$lib/recent_post/RecentPostCard.svelte';
 	export let posts: PostModel[];
 	export let authors: UserModel[];
@@ -57,7 +57,7 @@
 					<h1 class="mb-4 text-xl font-bold text-gray-700">Categories</h1>
 				</div>
 				<div class="max-w-sm mx-auto">
-					<CategoryListCard {tags} />
+					<TagListCard {tags} />
 				</div>
 				<div class="px-8 mt-10">
 					<h1 class="mb-4 text-xl font-bold text-gray-700">Recent Post</h1>
