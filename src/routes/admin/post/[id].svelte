@@ -31,6 +31,7 @@
 	import MultiSelect from 'svelte-multiselect';
 	import { marked } from 'marked';
 	import { PostModelFactory } from '$model/post';
+	import PostContent from '$lib/post/PostContent.svelte';
 
 	export let post;
 	let values = {
@@ -131,9 +132,7 @@
 	{#if tab === 'input'}
 		<Textarea bind:value={values.plainBody} label="内容" error={errors.plainBody} />
 	{:else}
-		<div>
-			{@html htmlBody}
-		</div>
+		<PostContent html={htmlBody} />
 	{/if}
 	<div>
 		<Select bind:value={status} options={statusOptions} />
