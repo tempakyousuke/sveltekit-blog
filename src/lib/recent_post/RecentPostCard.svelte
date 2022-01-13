@@ -1,21 +1,20 @@
 <script lang="ts">
 	import type { PostModel } from '$model/post';
 	import type { UserModel } from '$model/user';
-	import type { Category } from '$types/category';
 
 	export let post!: PostModel;
 	export let author!: UserModel;
-	export let category!: Category;
 </script>
 
 <div class="flex flex-col max-w-sm px-8 py-6 mx-auto bg-white rounded-lg shadow-md">
 	<div class="flex items-center justify-center">
-		<a
-			href="/category/{category.id}"
-			class="px-2 py-1 text-sm text-green-100 bg-gray-600 rounded hover:bg-gray-500"
-		>
-			{category.name}
-		</a>
+		{#each post.tags as tag}
+			<a
+				sveltekit:prefetch
+				href={`/tag/${tag}`}
+				class="px-2 py-1 font-bold text-gray-100 bg-gray-600 rounded hover:bg-gray-500">{tag}</a
+			>
+		{/each}
 	</div>
 	<div class="mt-4">
 		<a href="/post/{post.id}" class="text-lg font-medium text-gray-700 hover:underline">

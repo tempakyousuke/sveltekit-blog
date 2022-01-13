@@ -2,13 +2,19 @@
 	export async function load() {
 		const q = query(collection(db, 'posts'), where('status', '==', 'public'));
 		const qu = query(collection(db, 'users'), where('allowed', '==', true));
+		const snapshots = await getDocs(collection(db, 'tags'));
+		const tags = [];
+		snapshots.forEach((doc) => {
+			tags.push(doc.data().name);
+		});
 
 		const authors = await UserModelFactory.getList(qu);
 		const posts = await PostModelFactory.getList(q);
 		return {
 			props: {
 				posts,
-				authors
+				authors,
+				tags
 			}
 		};
 	}
@@ -20,7 +26,7 @@
 	import Header from '$lib/header/Header.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
-	import { query, where, collection } from 'firebase/firestore';
+	import { query, where, collection, getDocs } from 'firebase/firestore';
 	import { db } from '$modules/firebase/firebase';
 	import '../app.postcss';
 	import type { PostModel } from '$model/post';
@@ -30,13 +36,7 @@
 	import RecentPostCard from '$lib/recent_post/RecentPostCard.svelte';
 	export let posts: PostModel[];
 	export let authors: UserModel[];
-
-	import type { Category } from '$types/category';
-	const category: Category = {
-		id: 'aaa',
-		name: 'Svelte'
-	};
-	const categories: Category[] = new Array(5).fill(category);
+	export let tags: string[];
 </script>
 
 <Header />
@@ -57,11 +57,11 @@
 					<h1 class="mb-4 text-xl font-bold text-gray-700">Categories</h1>
 				</div>
 				<div class="max-w-sm mx-auto">
-					<CategoryListCard {categories} />
+					<CategoryListCard {tags} />
 				</div>
 				<div class="px-8 mt-10">
 					<h1 class="mb-4 text-xl font-bold text-gray-700">Recent Post</h1>
-					<RecentPostCard post={posts[0]} {category} author={authors[0]} />
+					<RecentPostCard post={posts[0]} author={authors[0]} />
 				</div>
 			</div>
 		</div>
