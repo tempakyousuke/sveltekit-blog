@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../../app.postcss';
-	import '../markdown.css';
+	import '../../markdown.css';
 	import 'highlight.js/styles/github-dark.css';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import AdminHeader from '$lib/header/AdminHeader.svelte';
