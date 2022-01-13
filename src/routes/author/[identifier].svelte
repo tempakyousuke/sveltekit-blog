@@ -8,7 +8,11 @@
 		);
 		const authors = await UserModelFactory.getList(q);
 		const author = authors[0];
-		const qp = query(collection(db, 'posts'), where('uid', '==', author.id));
+		const qp = query(
+			collection(db, 'posts'),
+			where('uid', '==', author.id),
+			where('status', '==', 'public')
+		);
 		const posts = await PostModelFactory.getList(qp);
 		return {
 			props: {
