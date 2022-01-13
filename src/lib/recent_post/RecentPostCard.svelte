@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Post } from '$types/post';
-	import type { User } from '$types/user';
+	import type { PostModel } from '$model/post';
+	import type { UserModel } from '$model/user';
 	import type { Category } from '$types/category';
 
-	export let post!: Post;
-	export let author!: User;
+	export let post!: PostModel;
+	export let author!: UserModel;
 	export let category!: Category;
 </script>
 
@@ -24,8 +24,8 @@
 	</div>
 	<div class="flex items-center justify-between mt-4">
 		<div class="flex items-center">
-			<img src={author.image} alt="avatar" class="object-cover w-8 h-8 rounded-full" />
-			<a href="/author/{author.id}" class="mx-3 text-sm text-gray-700 hover:underline">
+			<img src={author.imageUrl} alt="avatar" class="object-cover w-8 h-8 rounded-full" />
+			<a href="/author/{author.identifier}" class="mx-3 text-sm text-gray-700 hover:underline">
 				{author.name}
 			</a>
 		</div>

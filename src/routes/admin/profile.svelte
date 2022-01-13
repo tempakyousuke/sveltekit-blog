@@ -70,7 +70,6 @@
 		const author = await UserModelFactory.getDoc(uid);
 		values.name = author.name;
 		values.introduction = author.introduction;
-		await author.imagePromise;
 		defaultImage = author.imageUrl;
 	});
 </script>

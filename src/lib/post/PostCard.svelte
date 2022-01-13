@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { PostModel } from '$model/post';
-	import type { User } from '$types/user';
+	import type { UserModel } from '$model/user';
 
 	export let post!: PostModel;
-	export let author!: User;
+	export let author!: UserModel;
 
 	const postPageLink = `/post/${post.id}`;
 </script>
@@ -34,9 +34,9 @@
 	<div class="flex items-center justify-between mt-4">
 		<a sveltekit:prefetch href={postPageLink} class="text-blue-500 hover:underline">Read more</a>
 		<div>
-			<a href="/author/{author.id}" class="flex items-center"
-				><img
-					src={author.image}
+			<a href="/author/{author.identifier}" class="flex items-center">
+				<img
+					src={author.imageUrl}
 					alt="avatar"
 					class="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
 				/>
