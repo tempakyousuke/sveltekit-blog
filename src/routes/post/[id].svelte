@@ -2,11 +2,9 @@
 	export async function load({ page }) {
 		const id = page.params.id;
 		const post = await PostModelFactory.getDoc(id);
-		const author = await UserModelFactory.getDoc(post.uid);
 		return {
 			props: {
-				post,
-				author
+				post
 			}
 		};
 	}
@@ -14,13 +12,25 @@
 
 <script lang="ts">
 	import { PostModelFactory } from '$model/post';
-	import { UserModelFactory } from '$model/user';
 	import AuthorCardRow from '$lib/author/AuthorCardRow.svelte';
 	import type { PostModel } from '$model/post';
 	import type { UserModel } from '$model/user';
+	import { authorsStore } from '$modules/store/store';
 
 	export let post: PostModel;
-	export let author: UserModel;
+	let authors: UserModel[] = [];
+	let author: UserModel;
+
+	const getAuthor = (id: string) => {
+		author = authors.find((author) => {
+			return author.id === id;
+		});
+	};
+
+	authorsStore.subscribe((data) => {
+		authors = data;
+		getAuthor(post.uid);
+	});
 </script>
 
 <svelte:head>
