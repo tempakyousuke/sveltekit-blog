@@ -1,6 +1,6 @@
 <script context="module">
 	export async function load() {
-		const q = query(collection(db, 'posts'), where('status', '==', 'public'));
+		const q = query(collection(db, 'posts'), where('status', '==', 'public'), limit(1));
 		const qu = query(collection(db, 'users'), where('allowed', '==', true));
 		const snapshots = await getDocs(collection(db, 'tags'));
 		const tags = [];
@@ -10,6 +10,7 @@
 
 		const authors = await UserModelFactory.getList(qu);
 		const posts = await PostModelFactory.getList(q);
+		authorsStore.set(authors);
 		return {
 			props: {
 				posts,
@@ -26,7 +27,7 @@
 	import Header from '$lib/header/Header.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
-	import { query, where, collection, getDocs } from 'firebase/firestore';
+	import { query, where, collection, getDocs, limit } from 'firebase/firestore';
 	import { db } from '$modules/firebase/firebase';
 	import '../app.postcss';
 	import type { PostModel } from '$model/post';
@@ -34,9 +35,16 @@
 	import AuthorListCard from '$lib/author/AuthorListCard.svelte';
 	import TagListCard from '$lib/tag/TagListCard.svelte';
 	import RecentPostCard from '$lib/recent_post/RecentPostCard.svelte';
+	import { authorsStore } from '$modules/store/store';
 	export let posts: PostModel[];
 	export let authors: UserModel[];
 	export let tags: string[];
+
+	const getAuthor = (id: string) => {
+		return authors.find((author) => {
+			return author.id === id;
+		});
+	};
 </script>
 
 <Header />
@@ -61,7 +69,7 @@
 				</div>
 				<div class="px-8 mt-10">
 					<h1 class="mb-4 text-xl font-bold text-gray-700">Recent Post</h1>
-					<RecentPostCard post={posts[0]} author={authors[0]} />
+					<RecentPostCard post={posts[0]} author={getAuthor(posts[0].uid)} />
 				</div>
 			</div>
 		</div>
