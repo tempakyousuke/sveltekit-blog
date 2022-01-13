@@ -38,14 +38,14 @@
 
 <div class="max-w-4xl mx-auto">
 	<div class="flex items-center justify-between">
-		<h1 class="text-xl font-bold text-gray-700 md:text-2xl">Post</h1>
+		<h1 class="text-xl font-bold text-gray-700 md:text-2xl">記事一覧</h1>
 		<div>
-			<select
+			<!-- <select
 				class="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 			>
 				<option>Latest</option>
 				<option>Last Week</option>
-			</select>
+			</select> -->
 		</div>
 	</div>
 	{#each posts as post}
@@ -55,6 +55,6 @@
 	{/each}
 
 	<div class="mt-8">
-		<Pagination />
+		<!-- <Pagination /> -->
 	</div>
 </div>
