@@ -37,6 +37,7 @@
   "dependencies": {
     "dayjs": "^1.10.7",
     "firebase": "^9.6.1",
+    "highlight.js": "^11.4.0",
     "klona": "^2.0.5",
     "marked": "^4.0.7",
     "svelte-multiselect": "^1.2.3",

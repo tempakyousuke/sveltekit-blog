@@ -16,6 +16,7 @@
 	import type { PostModel } from '$model/post';
 	import type { UserModel } from '$model/user';
 	import { authorsStore } from '$modules/store/store';
+	import PostContent from '$lib/post/PostContent.svelte';
 
 	export let post: PostModel;
 	let authors: UserModel[] = [];
@@ -52,9 +53,7 @@
 			<div class="text-2xl font-bold text-gray-700 hover:underline">
 				{post.title}
 			</div>
-			<p class="mt-2 text-gray-600">
-				{@html post.htmlBody}
-			</p>
+			<PostContent html={post.htmlBody} className="mt-2 text-gray-600" />
 		</div>
 	</div>
 	<AuthorCardRow {author} className="mt-10" />

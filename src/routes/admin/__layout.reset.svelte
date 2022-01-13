@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'highlight.js/styles/github-dark.css';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import AdminHeader from '$lib/header/AdminHeader.svelte';
 	import Footer from '$lib/footer/Footer.svelte';

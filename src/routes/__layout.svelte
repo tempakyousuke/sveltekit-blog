@@ -22,6 +22,7 @@
 </script>
 
 <script lang="ts">
+	import 'highlight.js/styles/github-dark.css';
 	import { PostModelFactory } from '$model/post';
 	import { UserModelFactory } from '$model/user';
 	import Header from '$lib/header/Header.svelte';
