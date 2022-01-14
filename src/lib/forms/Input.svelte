@@ -65,7 +65,7 @@
 	</div>
 </div>
 
-<style type="text/postcss">
+<style lang="postcss">
 	input {
 		@apply h-full w-full border-gray-300 px-2 transition-all rounded border-2;
 	}

@@ -147,7 +147,7 @@
 	<TagModal bind:open={openTagModal} on:complete={getTags} />
 </div>
 
-<style type="text/postcss">
+<style lang="postcss">
 	.tab {
 		@apply border border-gray-300 cursor-pointer py-2 px-4 rounded-t-md;
 	}

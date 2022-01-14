@@ -32,7 +32,7 @@
 	</nav>
 </div>
 
-<style type="text/postcss">
+<style lang="postcss">
 	.nav-link {
 		@apply my-1 text-gray-800 hover:text-blue-500 md:mx-4 md:my-0;
 	}
