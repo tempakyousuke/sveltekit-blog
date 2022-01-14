@@ -9,7 +9,6 @@
 	import { doc, getDoc } from 'firebase/firestore';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { user } from '$modules/store/store';
-	import { goto } from '$app/navigation';
 
 	let loaded = false;
 	let isLoggedIn = false;
@@ -37,9 +36,6 @@
 	user.subscribe((user) => {
 		isLoggedIn = user.isLoggedIn;
 		allowed = user.allowed;
-		if (loaded && !isLoggedIn) {
-			goto('/signin');
-		}
 		loaded = true;
 	});
 </script>
