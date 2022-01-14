@@ -37,10 +37,13 @@
 <svelte:head>
 	<title>{post.title}</title>
 </svelte:head>
-<div class="mx-auto w-10/12">
-	<div class="px-10 py-6 bg-white rounded-lg shadow-md">
-		<div class="flex items-center justify-between">
-			<span class="font-light text-gray-600">{post.createdDatetime}</span>
+<div class="mx-auto w-11/12">
+	<div class="px-4 md:px-10 py-6 bg-white rounded-lg shadow-md">
+		<div class="flex flex-col md:flex-row items-start md:items-center md:justify-between">
+			<div class="font-light text-gray-600">
+				<span>投稿日 {post.firstPostedDatetime}</span><br class="md:hidden" />
+				<span class="md:ml-5">更新日 {post.firstPostedDatetime}</span>
+			</div>
 			{#each post.tags as tag}
 				<a
 					sveltekit:prefetch

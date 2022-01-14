@@ -1,3 +1,7 @@
+.post {
+	overflow-wrap: break-word;
+}
+
 .post a {
 	color: #0645ad;
 	text-decoration: none;

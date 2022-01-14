@@ -4,12 +4,12 @@
 	export let className = '';
 </script>
 
-<div class="flex px-6 py-4 bg-white rounded-lg shadow-md {className}">
+<div class="flex flex-col md:flex-row px-6 py-4 bg-white rounded-lg shadow-md {className}">
 	<a href="/author/{author.identifier}">
 		<img
 			src={author.imageUrl}
 			alt={author.name}
-			class="object-cover w-32 h-32 rounded-full mx-auto"
+			class="object-cover w-16 h-16 md:w-32 md:h-32 rounded-full mx-auto"
 		/>
 	</a>
 	<div class="flex-grow ml-10">
