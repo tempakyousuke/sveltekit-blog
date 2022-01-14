@@ -1,6 +1,6 @@
 <script context="module">
-	export async function load({ page }) {
-		const identifier = page.params.identifier;
+	export async function load({ params }) {
+		const identifier = params.identifier;
 		const q = query(
 			collection(db, 'users'),
 			where('identifier', '==', identifier),

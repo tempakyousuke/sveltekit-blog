@@ -1,6 +1,6 @@
 <script context="module">
-	export async function load({ page }) {
-		const id = page.params.id;
+	export async function load({ params }) {
+		const id = params.id;
 		const post = await PostModelFactory.getDoc(id);
 		return {
 			props: {

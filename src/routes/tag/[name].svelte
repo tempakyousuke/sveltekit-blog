@@ -1,6 +1,6 @@
 <script context="module">
-	export async function load({ page }) {
-		const name = page.params.name;
+	export async function load({ params }) {
+		const name = params.name;
 		const q = query(
 			collection(db, 'posts'),
 			where('tags', 'array-contains', name),
