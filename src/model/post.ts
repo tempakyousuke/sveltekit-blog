@@ -52,6 +52,22 @@ export class PostModel {
 		return this.createdDay.format('YYYY-MM-DD HH:mm');
 	}
 
+	get modifiedDay(): dayjs.Dayjs {
+		return dayjs(this.modified.toDate());
+	}
+
+	get mofifiedDatetime(): string {
+		return this.modifiedDay.format('YYYY-MM-DD HH:mm');
+	}
+
+	get firstPostedDay(): dayjs.Dayjs {
+		return dayjs(this.firstPosted.toDate());
+	}
+
+	get firstPostedDatetime(): string {
+		return this.firstPostedDay.format('YYYY-MM-DD HH:mm');
+	}
+
 	async update(post: Post): Promise<void> {
 		const data: any = post;
 		if (this.firstPosted === null && post.status === 'public') {
