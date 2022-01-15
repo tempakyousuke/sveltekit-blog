@@ -111,7 +111,7 @@
 <div class="container mx-auto pt-10">
 	<Input bind:value={values.title} label="タイトル" error={errors.title} />
 	<div class="mt-5 flex items-center">
-		<MultiSelect bind:selected={selectedTags} options={tags} />
+		<MultiSelect bind:selectedValues={selectedTags} options={tags} />
 		<Button className="ml-2" on:click={() => (openTagModal = true)}>タグ追加</Button>
 	</div>
 	<div class="flex mt-5">
