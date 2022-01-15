@@ -56,7 +56,7 @@ export class PostModel {
 		return dayjs(this.modified.toDate());
 	}
 
-	get mofifiedDatetime(): string {
+	get modifiedDatetime(): string {
 		return this.modifiedDay.format('YYYY-MM-DD HH:mm');
 	}
 

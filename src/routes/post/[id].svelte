@@ -42,7 +42,7 @@
 		<div class="flex flex-col md:flex-row items-start md:items-center md:justify-between">
 			<div class="font-light text-gray-600">
 				<span>投稿日 {post.firstPostedDatetime}</span><br class="md:hidden" />
-				<span class="md:ml-5">更新日 {post.firstPostedDatetime}</span>
+				<span class="md:ml-5">更新日 {post.modifiedDatetime}</span>
 			</div>
 			{#each post.tags as tag}
 				<a
