@@ -1,4 +1,34 @@
 <script>
+	import { user } from '$modules/store/store';
+	import { onAuthStateChanged } from 'firebase/auth';
+	import { auth, db } from '$modules/firebase/firebase';
+	import { doc, getDoc } from 'firebase/firestore';
+
+	onAuthStateChanged(auth, async (firebaseUser) => {
+		if (firebaseUser) {
+			const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+			const userData = userDoc.data();
+			user.set({
+				uid: firebaseUser.uid,
+				name: userData.name,
+				allowed: userData.allowed,
+				isLoggedIn: true
+			});
+		} else {
+			user.set({
+				uid: '',
+				name: '',
+				allowed: false,
+				isLoggedIn: false
+			});
+		}
+	});
+
+	let allowed = false;
+
+	user.subscribe((user) => {
+		allowed = user?.allowed;
+	});
 </script>
 
 <div>
@@ -25,6 +55,9 @@
 			</div>
 			<div class="flex-col hidden md:flex md:flex-row md:-mx-4">
 				<a href="/" class="nav-link">Home</a>
+				{#if allowed}
+					<a href="/admin" class="nav-link">執筆者メニュー</a>
+				{/if}
 				<!-- <a href="/" class="nav-link">Blog</a>
         <a href="/" class="nav-link">About us</a> -->
 			</div>
