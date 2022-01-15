@@ -130,15 +130,13 @@
 </div>
 
 <style lang="postcss">
-	.tab {
-		@apply border border-gray-300 cursor-pointer py-2 px-4 rounded-t-md bg-white;
-	}
-	.active {
-		@apply border-b-0 text-blue-500;
-	}
-
 	:global(.multiselect) {
 		background-color: white;
 		color: white;
+	}
+
+	:global(.multiselect ul.options) {
+		color: black;
+		border: 1px solid #aaa;
 	}
 </style>

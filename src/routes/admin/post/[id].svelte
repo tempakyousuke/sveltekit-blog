@@ -117,19 +117,18 @@
 		<Select bind:value={status} options={statusOptions} className="w-10 mt-3" />
 	</div>
 
-	<Button on:click={submit} classNamw="mt-3">保存</Button>
+	<Button on:click={submit} className="mt-3">保存</Button>
 	<TagModal bind:open={openTagModal} on:complete={getTags} />
 </div>
 
 <style lang="postcss">
-	.tab {
-		@apply border border-gray-300 cursor-pointer py-2 px-4 rounded-t-md;
-	}
-	.active {
-		@apply border-b-0 text-blue-500;
-	}
 	:global(.multiselect) {
 		background-color: white;
 		color: white;
+	}
+
+	:global(.multiselect ul.options) {
+		color: black;
+		border: 1px solid #aaa;
 	}
 </style>
