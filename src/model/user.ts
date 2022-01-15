@@ -77,7 +77,9 @@ export const UserModelFactory = {
 		snapshot.forEach((doc) => {
 			const promise = (async () => {
 				const data = doc.data();
-				const imageUrl = await getDownloadURL(ref(firestorage, data.imagePath));
+				const imageUrl = data.imagePath
+					? await getDownloadURL(ref(firestorage, data.imagePath))
+					: '';
 				const post = {
 					id: doc.id,
 					imageUrl,
