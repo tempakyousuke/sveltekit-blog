@@ -92,7 +92,7 @@ export const UserModelFactory = {
 	getDoc: async (id: string): Promise<UserModel> => {
 		const postDoc = await getDoc(doc(db, 'users', id));
 		const post = postDoc.data();
-		const imageUrl = await getDownloadURL(ref(firestorage, post.imagePath));
+		const imageUrl = post.imagePath ? await getDownloadURL(ref(firestorage, post.imagePath)) : '';
 
 		const data = {
 			id,
