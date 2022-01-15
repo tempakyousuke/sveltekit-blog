@@ -64,7 +64,7 @@
 					</div>
 				</div>
 				<div class="px-8 mt-10">
-					<h1 class="mb-4 text-xl font-bold text-gray-700">Categories</h1>
+					<h1 class="mb-4 text-xl font-bold text-gray-700">Tags</h1>
 				</div>
 				<div class="max-w-sm mx-auto">
 					<TagListCard {tags} />
