@@ -9,6 +9,7 @@
 	export let error = '';
 	export let addEmpty = false;
 	export let emptyValue = '';
+	export let className = '';
 	let selectEl;
 
 	$: selectOptions = (() => {
@@ -45,7 +46,7 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<div class="flex justify-center items-center">
+<div class="flex justify-center items-center {className}">
 	<div class="relative h-10 w-full" class:empty={!value}>
 		<select
 			bind:value

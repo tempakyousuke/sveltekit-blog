@@ -47,7 +47,6 @@
 	};
 	export let tags: string[] = [];
 	$: htmlBody = marked.parse(values.plainBody);
-	let tab = 'input';
 
 	let uid = '';
 	let openTagModal = false;
@@ -112,36 +111,13 @@
 		<MultiSelect bind:selectedValues={selectedTags} options={tags} />
 		<Button className="ml-2" on:click={() => (openTagModal = true)}>タグ追加</Button>
 	</div>
-	<div class="flex mt-5">
-		<div
-			class="tab"
-			class:active={tab === 'input'}
-			on:click={() => {
-				tab = 'input';
-			}}
-		>
-			入力
-		</div>
-		<div
-			class="tab"
-			class:active={tab === 'preview'}
-			on:click={() => {
-				tab = 'preview';
-			}}
-		>
-			プレビュー
-		</div>
-	</div>
-	{#if tab === 'input'}
-		<Textarea bind:value={values.plainBody} label="内容" error={errors.plainBody} />
-	{:else}
-		<PostContent html={htmlBody} />
-	{/if}
+	<Textarea bind:value={values.plainBody} label="内容" error={errors.plainBody} />
+	<PostContent html={htmlBody} />
 	<div>
-		<Select bind:value={status} options={statusOptions} />
+		<Select bind:value={status} options={statusOptions} className="w-10 mt-3" />
 	</div>
 
-	<Button on:click={submit}>保存</Button>
+	<Button on:click={submit} classNamw="mt-3">保存</Button>
 	<TagModal bind:open={openTagModal} on:complete={getTags} />
 </div>
 
@@ -151,5 +127,9 @@
 	}
 	.active {
 		@apply border-b-0 text-blue-500;
+	}
+	:global(.multiselect) {
+		background-color: white;
+		color: white;
 	}
 </style>
