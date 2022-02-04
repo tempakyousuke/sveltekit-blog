@@ -7,6 +7,8 @@ import {
 	updateDoc,
 	collection,
 	serverTimestamp,
+	query,
+	orderBy,
 	deleteDoc
 } from 'firebase/firestore';
 import type { DocumentReference, DocumentData, Query } from 'firebase/firestore';
@@ -95,8 +97,8 @@ export type Post = Exclude<
 
 export const PostModelFactory = {
 	getList: async (q: Query | null = null): Promise<PostModel[]> => {
-		const query = q ? q : collection(db, 'posts');
-		const snapshot = await getDocs(query);
+		const qu = q ? q : query(collection(db, 'posts'), orderBy('modified', 'desc'));
+		const snapshot = await getDocs(qu);
 		const posts: PostModel[] = [];
 		snapshot.forEach((doc) => {
 			const data = doc.data();
