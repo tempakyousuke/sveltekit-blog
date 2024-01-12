@@ -1,25 +1,3 @@
-<script context="module">
-	export async function load({ params }) {
-		const id = params.id;
-		const post = await PostModelFactory.getDoc(id);
-		const co = collection(db, 'tags');
-		const snapshots = await getDocs(co);
-		const tags = [];
-		snapshots.forEach((snapshot) => {
-			tags.push(snapshot.data().name);
-		});
-		return {
-			props: {
-				post,
-				tags: tags.map((tag) => {
-					const preselected = post.tags.includes(tag);
-					return { label: tag, value: tag, preselected };
-				})
-			}
-		};
-	}
-</script>
-
 <script lang="ts">
 	import * as yup from 'yup';
 	import Button from '$lib/button/Button.svelte';
@@ -33,10 +11,15 @@
 	import TagModal from '$lib/tag/TagModal.svelte';
 	import MultiSelect from 'svelte-multiselect';
 	import { marked } from 'marked';
-	import { PostModelFactory } from '$model/post';
 	import PostContent from '$lib/post/PostContent.svelte';
+	import type { PostModel } from '$model/post';
 
-	export let post;
+	export let data: {
+		post: PostModel;
+		tags: Array<{ label: string; value: string; preselected: boolean } | string>;
+	};
+	const post = data.post;
+
 	let values = {
 		title: post.title,
 		plainBody: post.plainBody
@@ -45,7 +28,7 @@
 		title: '',
 		plainBody: ''
 	};
-	export let tags: string[] = [];
+	let tags = data.tags;
 	$: htmlBody = marked.parse(values.plainBody);
 
 	let uid = '';
@@ -108,7 +91,7 @@
 <div class="container mx-auto pt-10">
 	<Input bind:value={values.title} label="タイトル" error={errors.title} />
 	<div class="mt-5 flex items-center">
-		<MultiSelect bind:selectedValues={selectedTags} options={tags} />
+		<MultiSelect bind:selected={selectedTags} options={tags} />
 		<Button className="ml-2" on:click={() => (openTagModal = true)}>タグ追加</Button>
 	</div>
 	<Textarea bind:value={values.plainBody} label="内容" error={errors.plainBody} />
