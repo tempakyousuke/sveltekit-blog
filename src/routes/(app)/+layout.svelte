@@ -1,6 +1,6 @@
 <script lang="ts">
-	import '../app.postcss';
-	import '../markdown.css';
+	import '../../app.postcss';
+	import '../../markdown.css';
 	import 'highlight.js/styles/github-dark.css';
 
 	import Header from '$lib/header/Header.svelte';
