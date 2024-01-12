@@ -1,19 +1,3 @@
-<script context="module">
-	export async function load() {
-		const co = collection(db, 'tags');
-		const snapshots = await getDocs(co);
-		const tags = [];
-		snapshots.forEach((snapshot) => {
-			tags.push(snapshot.data().name);
-		});
-		return {
-			props: {
-				tags
-			}
-		};
-	}
-</script>
-
 <script lang="ts">
 	import * as yup from 'yup';
 	import Button from '$lib/button/Button.svelte';
@@ -39,12 +23,15 @@
 		title: '',
 		plainBody: ''
 	};
-	export let tags: string[] = [];
+	export let data: {
+		tags: string[];
+	};
+	let tags: string[] = data.tags;
 	$: htmlBody = marked.parse(values.plainBody);
 
 	let uid = '';
 	let openTagModal = false;
-	let selectedTags = [];
+	let selectedTags: string[] = [];
 	let status = 'public';
 
 	const statusOptions = [
