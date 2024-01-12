@@ -1,24 +1,14 @@
-<script context="module">
-	export async function load({ params }) {
-		const id = params.id;
-		const post = await PostModelFactory.getDoc(id);
-		return {
-			props: {
-				post
-			}
-		};
-	}
-</script>
-
 <script lang="ts">
-	import { PostModelFactory } from '$model/post';
 	import AuthorCardRow from '$lib/author/AuthorCardRow.svelte';
 	import type { PostModel } from '$model/post';
 	import type { UserModel } from '$model/user';
 	import { authorsStore } from '$modules/store/store';
 	import PostContent from '$lib/post/PostContent.svelte';
 
-	export let post: PostModel;
+	export let data: {
+		post: PostModel;
+	};
+	const post = data.post;
 	let authors: UserModel[] = [];
 	let author: UserModel;
 
@@ -46,7 +36,6 @@
 			</div>
 			{#each post.tags as tag}
 				<a
-					sveltekit:prefetch
 					href={`/tag/${tag}`}
 					class="px-2 py-1 font-bold text-gray-100 bg-gray-600 rounded hover:bg-gray-500">{tag}</a
 				>
