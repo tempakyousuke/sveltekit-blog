@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as yup from 'yup';
+	import { ValidationError } from 'yup';
 	import Input from '$lib/forms/Input.svelte';
 	import Button from '$lib/button/Button.svelte';
 	import { auth, db } from '$modules/firebase/firebase';
@@ -15,7 +16,7 @@
 		password: ''
 	};
 
-	let errors = {
+	let errors: { [key: string]: string } = {
 		name: '',
 		identifier: '',
 		email: '',
@@ -44,7 +45,7 @@
 			.then(() => {
 				errors[path] = '';
 			})
-			.catch((err) => {
+			.catch((err: ValidationError) => {
 				errors[path] = err.message;
 			});
 	};
@@ -56,8 +57,10 @@
 				signUp();
 			})
 			.catch((err) => {
-				err.inner.forEach((error) => {
-					errors[error.path] = error.message;
+				err.inner.forEach((error: ValidationError) => {
+					if (error.path) {
+						errors[error.path] = error.message;
+					}
 				});
 			});
 	};

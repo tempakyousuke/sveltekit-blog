@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as yup from 'yup';
+	import { ValidationError } from 'yup';
 	import Button from '$lib/button/Button.svelte';
 	import Input from '$lib/forms/Input.svelte';
 	import Textarea from '$lib/forms/Textarea.svelte';
@@ -24,7 +25,7 @@
 		title: post.title,
 		plainBody: post.plainBody
 	};
-	let errors = {
+	let errors: { [key: string]: string } = {
 		title: '',
 		plainBody: ''
 	};
@@ -57,8 +58,10 @@
 				updatePost();
 			})
 			.catch((err) => {
-				err.inner.forEach((error) => {
-					errors[error.path] = error.message;
+				err.inner.forEach((error: ValidationError) => {
+					if (error.path) {
+						errors[error.path] = error.message;
+					}
 				});
 			});
 	};
