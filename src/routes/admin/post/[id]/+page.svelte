@@ -29,7 +29,7 @@
 		plainBody: ''
 	};
 	let tags = data.tags;
-	$: htmlBody = marked.parse(values.plainBody);
+	$: htmlBody = marked.parse(values.plainBody) as string;
 
 	let uid = '';
 	let openTagModal = false;

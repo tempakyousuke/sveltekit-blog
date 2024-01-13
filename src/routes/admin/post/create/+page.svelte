@@ -27,7 +27,7 @@
 		tags: string[];
 	};
 	let tags: string[] = data.tags;
-	$: htmlBody = marked.parse(values.plainBody);
+	$: htmlBody = marked.parse(values.plainBody) as string;
 
 	let uid = '';
 	let openTagModal = false;
@@ -97,7 +97,7 @@
 <div class="container mx-auto pt-10">
 	<Input bind:value={values.title} label="タイトル" error={errors.title} />
 	<div class="mt-5 flex items-center">
-		<MultiSelect bind:selectedValues={selectedTags} options={tags} />
+		<MultiSelect bind:selected={selectedTags} options={tags} />
 		<Button className="ml-2" on:click={() => (openTagModal = true)}>タグ追加</Button>
 	</div>
 	<div class="flex">
