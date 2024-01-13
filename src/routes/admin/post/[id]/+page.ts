@@ -1,5 +1,6 @@
 import { PostModelFactory } from '$model/post';
 import { getDocs, collection } from 'firebase/firestore';
+import { db } from '$modules/firebase/firebase';
 
 export async function load({ params }) {
 	const id = params.id;
