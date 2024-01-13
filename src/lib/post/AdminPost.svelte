@@ -11,18 +11,13 @@
 		<span class="font-light text-gray-600">{post.createdDatetime}</span>
 		{#each post.tags as tag}
 			<a
-				sveltekit:prefetch
 				href={`/tag/${tag}`}
 				class="px-2 py-1 font-bold text-gray-100 bg-gray-600 rounded hover:bg-gray-500">{tag}</a
 			>
 		{/each}
 	</div>
 	<div class="mt-2">
-		<a
-			sveltekit:prefetch
-			href={postPageLink}
-			class="text-2xl font-bold text-gray-700 hover:underline"
-		>
+		<a href={postPageLink} class="text-2xl font-bold text-gray-700 hover:underline">
 			{post.title}</a
 		>
 		<p class="mt-2 text-gray-600">
