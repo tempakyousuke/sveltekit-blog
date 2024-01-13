@@ -10,7 +10,7 @@
 	};
 	const post = data.post;
 	let authors: UserModel[] = [];
-	let author: UserModel;
+	let author: UserModel | undefined;
 
 	const getAuthor = (id: string) => {
 		author = authors.find((author) => {
