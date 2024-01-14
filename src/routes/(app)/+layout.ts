@@ -1,6 +1,6 @@
 import { PostModelFactory } from '$model/post';
 import { UserModelFactory } from '$model/user';
-import { query, where, collection, getDocs, limit } from 'firebase/firestore';
+import { query, where, collection, getDocs, limit, orderBy } from 'firebase/firestore';
 import { db } from '$modules/firebase/firebase';
 import { authorsStore } from '$modules/store/store';
 
@@ -8,7 +8,7 @@ export const ssr = false;
 
 export async function load() {
 
-  const q = query(collection(db, 'posts'), where('status', '==', 'public'), limit(1));
+  const q = query(collection(db, 'posts'), where('status', '==', 'public'), orderBy('modified', 'desc'), limit(1));
   const qu = query(collection(db, 'users'), where('allowed', '==', true));
   const snapshots = await getDocs(collection(db, 'tags'));
   const tags: string[] = [];
