@@ -9,12 +9,19 @@ import {
 	serverTimestamp,
 	query,
 	orderBy,
-	deleteDoc
 } from 'firebase/firestore';
 import type { DocumentReference, DocumentData, Query } from 'firebase/firestore';
 import { ref, getDownloadURL, deleteObject } from 'firebase/storage';
 import dayjs from 'dayjs';
 import { UserModelFactory } from '$model/user';
+
+type UpdateInput = {
+	title: string;
+	status: string;
+	plainBody: string;
+	htmlBody: string;
+	tags: string[];
+}
 
 export class PostModel {
 	id: string;
@@ -76,7 +83,7 @@ export class PostModel {
 		}
 	}
 
-	async update(post: Post): Promise<void> {
+	async update(post: UpdateInput): Promise<void> {
 		const data: any = post;
 		if (this.firstPosted === null && post.status === 'public') {
 			data.firstPosted = serverTimestamp();
@@ -95,11 +102,6 @@ export class PostModel {
 		});
 	}
 }
-
-export type Post = Exclude<
-	PostModel,
-	'constructor' | 'createdDay' | 'createdDatetime' | 'update' | 'id' | 'created' | 'modified'
->;
 
 export const PostModelFactory = {
 	getList: async (q: Query | null = null): Promise<PostModel[]> => {

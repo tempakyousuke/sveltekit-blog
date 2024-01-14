@@ -70,7 +70,6 @@
 		await post.update({
 			...values,
 			htmlBody,
-			uid,
 			tags: selectedTags,
 			status: status
 		});
