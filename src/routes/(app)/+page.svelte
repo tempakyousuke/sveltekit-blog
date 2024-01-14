@@ -1,31 +1,15 @@
-<script context="module">
-	export async function load() {
-		const q = query(collection(db, 'posts'), where('status', '==', 'public'));
-		const qu = query(collection(db, 'users'), where('allowed', '==', true));
-
-		const authors = await UserModelFactory.getList(qu);
-		const posts = await PostModelFactory.getList(q);
-		return {
-			props: {
-				posts,
-				authors
-			}
-		};
-	}
-</script>
-
 <script lang="ts">
-	import { PostModelFactory } from '$model/post';
-	import { UserModelFactory } from '$model/user';
 	import PostCard from '$lib/post/PostCard.svelte';
-	import Pagination from '$lib/pagination/Pagination.svelte';
+	// import Pagination from '$lib/pagination/Pagination.svelte';
 	import type { PostModel } from '$model/post';
 	import type { UserModel } from '$model/user';
-	import { query, where, collection } from 'firebase/firestore';
-	import { db } from '$modules/firebase/firebase';
 
-	export let posts: PostModel[];
-	export let authors: UserModel[];
+	export let data: {
+		posts: PostModel[];
+		authors: UserModel[];
+	};
+	const posts = data.posts;
+	const authors = data.authors;
 
 	const getAuthor = (id: string) => {
 		return authors.find((author) => author.id == id);

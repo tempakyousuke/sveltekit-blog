@@ -1,36 +1,23 @@
-import preprocess from 'svelte-preprocess';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import adapter from '@sveltejs/adapter-static';
-import path from 'path';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
-	preprocess: [
-		preprocess({
-			postcss: true
-		})
-	],
+	preprocess: vitePreprocess(),
 
 	kit: {
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
 			fallback: 'index.html'
 		}),
-		vite: {
-			resolve: {
-				alias: {
-					$types: path.resolve('./types'),
-					$model: path.resolve('./src/model'),
-					$modules: path.resolve('./src/modules')
-				}
-			},
-			ssr: {
-				external: ['firebase']
-			}
+		alias: {
+			$lib: './src/lib',
+			$model: './src/model',
+			$modules: './src/modules',
+			$types: './types'
 		}
 	}
 };

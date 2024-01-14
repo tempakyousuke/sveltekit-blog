@@ -1,32 +1,17 @@
-<script context="module">
-	export async function load({ params }) {
-		const name = params.name;
-		const q = query(
-			collection(db, 'posts'),
-			where('tags', 'array-contains', name),
-			where('status', '==', 'public'),
-			orderBy('modified', 'desc')
-		);
-		const posts = await PostModelFactory.getList(q);
-		return {
-			props: {
-				name,
-				posts
-			}
-		};
-	}
-</script>
-
 <script lang="ts">
-	import { PostModelFactory } from '$model/post';
 	import { authorsStore } from '$modules/store/store';
-	import { query, where, collection, orderBy } from 'firebase/firestore';
-	import { db } from '$modules/firebase/firebase';
 	import PostCard from '$lib/post/PostCard.svelte';
+	import type { PostModel } from '$model/post';
+	import type { UserModel } from '$model/user';
 
-	export let name;
-	export let posts;
-	let authors = [];
+	export let data: {
+		name: string;
+		posts: PostModel[];
+	};
+
+	const name = data.name;
+	const posts = data.posts;
+	let authors: UserModel[] = [];
 	authorsStore.subscribe((data) => {
 		authors = data;
 	});

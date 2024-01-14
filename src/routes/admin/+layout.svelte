@@ -17,13 +17,15 @@
 	onAuthStateChanged(auth, async (firebaseUser) => {
 		if (firebaseUser) {
 			const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
-			const userData = userDoc.data();
-			user.set({
-				uid: firebaseUser.uid,
-				name: userData.name,
-				allowed: userData.allowed,
-				isLoggedIn: true
-			});
+			if (userDoc.exists()) {
+				const userData = userDoc.data();
+				user.set({
+					uid: firebaseUser.uid,
+					name: userData.name,
+					allowed: userData.allowed,
+					isLoggedIn: true
+				});
+			}
 		} else {
 			user.set({
 				uid: '',

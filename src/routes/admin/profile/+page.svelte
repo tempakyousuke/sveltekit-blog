@@ -5,6 +5,7 @@
 	import ImagePicker from '$lib/forms/Image.svelte';
 
 	import * as yup from 'yup';
+	import { ValidationError } from 'yup';
 	import { user } from '$modules/store/store';
 	import { doc, getDoc, updateDoc } from 'firebase/firestore';
 	import { ref, uploadBytes } from 'firebase/storage';
@@ -26,7 +27,6 @@
 
 	let uid = '';
 	let image;
-	let author: UserModel;
 	let defaultImage = '';
 
 	let values = {
@@ -34,7 +34,7 @@
 		introduction: ''
 	};
 
-	let errors = {
+	let errors: { [key: string]: string } = {
 		name: '',
 		introduction: ''
 	};
@@ -46,8 +46,10 @@
 				updateUser();
 			})
 			.catch((err) => {
-				err.inner.forEach((error) => {
-					errors[error.path] = error.message;
+				err.inner.forEach((error: ValidationError) => {
+					if (error.path) {
+						errors[error.path] = error.message;
+					}
 				});
 			});
 	};

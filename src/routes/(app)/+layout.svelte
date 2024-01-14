@@ -1,46 +1,27 @@
-<script context="module">
-	export async function load() {
-		const q = query(collection(db, 'posts'), where('status', '==', 'public'), limit(1));
-		const qu = query(collection(db, 'users'), where('allowed', '==', true));
-		const snapshots = await getDocs(collection(db, 'tags'));
-		const tags = [];
-		snapshots.forEach((doc) => {
-			tags.push(doc.data().name);
-		});
-
-		const authors = await UserModelFactory.getList(qu);
-		const posts = await PostModelFactory.getList(q);
-		authorsStore.set(authors);
-		return {
-			props: {
-				posts,
-				authors,
-				tags
-			}
-		};
-	}
-</script>
-
 <script lang="ts">
-	import '../app.postcss';
-	import '../markdown.css';
+	import '../../app.postcss';
+	import '../../markdown.css';
 	import 'highlight.js/styles/github-dark.css';
-	import { PostModelFactory } from '$model/post';
-	import { UserModelFactory } from '$model/user';
+
 	import Header from '$lib/header/Header.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
-	import { query, where, collection, getDocs, limit } from 'firebase/firestore';
-	import { db } from '$modules/firebase/firebase';
+
 	import type { PostModel } from '$model/post';
 	import type { UserModel } from '$model/user';
 	import AuthorListCard from '$lib/author/AuthorListCard.svelte';
 	import TagListCard from '$lib/tag/TagListCard.svelte';
 	import RecentPostCard from '$lib/recent_post/RecentPostCard.svelte';
-	import { authorsStore } from '$modules/store/store';
-	export let posts: PostModel[];
-	export let authors: UserModel[];
-	export let tags: string[];
+
+	export let data: {
+		posts: PostModel[];
+		authors: UserModel[];
+		tags: string[];
+	};
+
+	const posts = data.posts;
+	const authors = data.authors;
+	const tags = data.tags;
 
 	const getAuthor = (id: string) => {
 		return authors.find((author) => {
