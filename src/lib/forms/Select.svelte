@@ -4,13 +4,13 @@
 
 	export let value = '';
 	export let label = '';
-	export let options = [];
+	export let options: Array<{ label: string; value: string | number }> = [];
 	export let disabled = false;
 	export let error = '';
 	export let addEmpty = false;
 	export let emptyValue = '';
 	export let className = '';
-	let selectEl;
+	let selectEl: HTMLSelectElement;
 
 	$: selectOptions = (() => {
 		if (addEmpty) {
