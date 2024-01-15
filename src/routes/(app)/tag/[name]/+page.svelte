@@ -9,8 +9,8 @@
 		posts: PostModel[];
 	};
 
-	const name = data.name;
-	const posts = data.posts;
+	$: name = data.name;
+	$: posts = data.posts;
 	let authors: UserModel[] = [];
 	authorsStore.subscribe((data) => {
 		authors = data;

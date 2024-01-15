@@ -8,8 +8,8 @@
 		posts: PostModel[];
 		author: UserModel;
 	};
-	let posts = data.posts;
-	let author = data.author;
+	$: posts = data.posts;
+	$: author = data.author;
 </script>
 
 <div class="mx-auto">

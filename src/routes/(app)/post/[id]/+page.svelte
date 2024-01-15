@@ -8,7 +8,8 @@
 	export let data: {
 		post: PostModel;
 	};
-	const post = data.post;
+	$: post = data.post;
+
 	let authors: UserModel[] = [];
 	let author: UserModel | undefined;
 
@@ -20,7 +21,7 @@
 
 	authorsStore.subscribe((data) => {
 		authors = data;
-		getAuthor(post.uid);
+		getAuthor(post?.uid);
 	});
 </script>
 

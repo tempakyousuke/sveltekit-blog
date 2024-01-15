@@ -19,7 +19,7 @@
 		post: PostModel;
 		tags: Array<{ label: string; value: string; preselected: boolean } | string>;
 	};
-	const post = data.post;
+	$: post = data.post;
 
 	let values = {
 		title: post.title,
@@ -29,7 +29,7 @@
 		title: '',
 		plainBody: ''
 	};
-	let tags = data.tags;
+	$: tags = data.tags;
 	$: htmlBody = marked.parse(values.plainBody) as string;
 
 	let uid = '';
