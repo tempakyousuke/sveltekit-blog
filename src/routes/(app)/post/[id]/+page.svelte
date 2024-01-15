@@ -13,16 +13,17 @@
 	let authors: UserModel[] = [];
 	let author: UserModel | undefined;
 
-	const getAuthor = (id: string) => {
-		author = authors.find((author) => {
-			return author.id === id;
-		});
-	};
+	$: author = getAuthor(post.uid);
 
 	authorsStore.subscribe((data) => {
 		authors = data;
-		getAuthor(post?.uid);
 	});
+
+	const getAuthor = (id: string) => {
+		return authors.find((author) => {
+			return author.id === id;
+		});
+	};
 </script>
 
 <svelte:head>
