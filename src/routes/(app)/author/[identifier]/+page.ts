@@ -15,7 +15,8 @@ export async function load({ params }) {
   const qp = query(
     collection(db, 'posts'),
     where('uid', '==', author.id),
-    where('status', '==', 'public')
+    where('status', '==', 'public'),
+    orderBy('modified', 'desc')
   );
   const posts = await PostModelFactory.getList(qp);
   return {
