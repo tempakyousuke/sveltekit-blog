@@ -12,7 +12,8 @@
 		{#each post.tags as tag}
 			<a
 				href={`/tag/${tag}`}
-				class="px-2 py-1 font-bold text-gray-100 bg-gray-600 rounded hover:bg-gray-500">{tag}</a
+				class="px-2 py-1 font-bold text-gray-100 bg-gray-600 rounded hover:bg-gray-500 text-sm"
+				>{tag}</a
 			>
 		{/each}
 	</div>
