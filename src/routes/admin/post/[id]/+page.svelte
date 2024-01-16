@@ -19,23 +19,23 @@
 		post: PostModel;
 		tags: Array<{ label: string; value: string; preselected: boolean } | string>;
 	};
-	$: post = data.post;
+	const post = data.post;
 
 	let values = {
-		title: post.title,
-		plainBody: post.plainBody
+		title: post?.title,
+		plainBody: post?.plainBody || ''
 	};
 	let errors: { [key: string]: string } = {
 		title: '',
 		plainBody: ''
 	};
-	$: tags = data.tags;
+	let tags = data.tags;
 	$: htmlBody = marked.parse(values.plainBody) as string;
 
 	let uid = '';
 	let openTagModal = false;
-	let selectedTags = post.tags;
-	let status = post.status;
+	let selectedTags = post?.tags;
+	let status = post?.status;
 
 	const statusOptions = [
 		{ label: '公開', value: 'public' },
@@ -104,6 +104,7 @@
 
 	<Button on:click={submit} className="mt-3">保存</Button>
 	<TagModal bind:open={openTagModal} on:complete={getTags} />
+	{post.title}
 </div>
 
 <style lang="postcss">
