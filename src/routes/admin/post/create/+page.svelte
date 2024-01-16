@@ -103,7 +103,7 @@
 		<MultiSelect bind:selected={selectedTags} options={tags} />
 		<Button className="ml-2" on:click={() => (openTagModal = true)}>タグ追加</Button>
 	</div>
-	<div class="flex">
+	<div class="mt-5 flex">
 		<Textarea
 			className="w-6/12"
 			bind:value={values.plainBody}
