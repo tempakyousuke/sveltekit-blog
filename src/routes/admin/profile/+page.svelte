@@ -26,7 +26,7 @@
 	});
 
 	let uid = '';
-	let image;
+	let image: File | undefined;
 	let defaultImage = '';
 
 	let values = {
