@@ -112,7 +112,6 @@
 
 	<Button on:click={submit} className="mt-3">保存</Button>
 	<TagModal bind:open={openTagModal} on:complete={getTags} />
-	{post.title}
 </div>
 
 <style lang="postcss">

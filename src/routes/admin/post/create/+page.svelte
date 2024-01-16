@@ -14,6 +14,7 @@
 	import { marked } from 'marked';
 	import { UserModelFactory } from '$model/user';
 	import PostContent from '$lib/post/PostContent.svelte';
+	import { postToSlack } from '$modules/slack/postToSlack';
 
 	let values = {
 		title: '',
@@ -79,7 +80,8 @@
 			const user = await UserModelFactory.getDoc(uid);
 			user.increaseCount();
 		}
-		await addDoc(collection(db, 'posts'), data);
+		const postRef = await addDoc(collection(db, 'posts'), data);
+		await postToSlack(`https://blog-893dd.web.app/post/${postRef.id}`);
 		goto('/admin');
 	};
 

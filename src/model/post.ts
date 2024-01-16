@@ -8,12 +8,13 @@ import {
 	collection,
 	serverTimestamp,
 	query,
-	orderBy,
+	orderBy
 } from 'firebase/firestore';
 import type { DocumentReference, DocumentData, Query } from 'firebase/firestore';
 import { ref, getDownloadURL, deleteObject } from 'firebase/storage';
 import dayjs from 'dayjs';
 import { UserModelFactory } from '$model/user';
+import { postToSlack } from '$modules/slack/postToSlack';
 
 type UpdateInput = {
 	title: string;
@@ -21,7 +22,7 @@ type UpdateInput = {
 	plainBody: string;
 	htmlBody: string;
 	tags: string[];
-}
+};
 
 export class PostModel {
 	id: string;
@@ -76,14 +77,14 @@ export class PostModel {
 	get firstPostedDay(): dayjs.Dayjs | undefined {
 		if (this.firstPosted) {
 			return dayjs(this.firstPosted.toDate());
-		} 
+		}
 	}
 
 	get firstPostedDate(): string {
 		if (this.firstPostedDay) {
 			return this.firstPostedDay.format('YYYY-MM-DD');
 		} else {
-			return ''
+			return '';
 		}
 	}
 
@@ -91,13 +92,15 @@ export class PostModel {
 		if (this.firstPostedDay) {
 			return this.firstPostedDay.format('YYYY-MM-DD HH:mm');
 		} else {
-			return ''
+			return '';
 		}
 	}
 
 	async update(post: UpdateInput): Promise<void> {
 		const data: any = post;
+		let isFirstPost = false;
 		if (this.firstPosted === null && post.status === 'public') {
+			isFirstPost = true;
 			data.firstPosted = serverTimestamp();
 		}
 		if (this.status !== post.status) {
@@ -112,6 +115,9 @@ export class PostModel {
 			...data,
 			modified: serverTimestamp()
 		});
+		if (isFirstPost) {
+			await postToSlack(`https://blog-893dd.web.app/post/${this.id}`);
+		}
 	}
 }
 
