@@ -28,6 +28,6 @@
 				{author?.name}
 			</a>
 		</div>
-		<span class="text-sm font-light text-gray-600">Jun 1, 2020</span>
+		<span class="text-sm font-light text-gray-600">{post.firstPostedDate}</span>
 	</div>
 </div>

@@ -65,6 +65,10 @@ export class PostModel {
 		return dayjs(this.modified.toDate());
 	}
 
+	get modifiedDate(): string {
+		return this.modifiedDay.format('YYYY-MM-DD');
+	}
+
 	get modifiedDatetime(): string {
 		return this.modifiedDay.format('YYYY-MM-DD HH:mm');
 	}
@@ -73,6 +77,14 @@ export class PostModel {
 		if (this.firstPosted) {
 			return dayjs(this.firstPosted.toDate());
 		} 
+	}
+
+	get firstPostedDate(): string {
+		if (this.firstPostedDay) {
+			return this.firstPostedDay.format('YYYY-MM-DD');
+		} else {
+			return ''
+		}
 	}
 
 	get firstPostedDatetime(): string {
