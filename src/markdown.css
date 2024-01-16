@@ -50,6 +50,7 @@
 
 .post p {
 	margin: 1em 0;
+	line-height: 1.7;
 }
 
 .post img {
@@ -71,6 +72,13 @@
 .post h5,
 .post h6 {
 	font-weight: bold;
+}
+
+.post h1,
+.post h2 {
+	border-bottom: 1px solid rgba(20, 20, 20, 0.2);
+	padding-bottom: 6px;
+	margin: 60px 0 16px;
 }
 
 .post h1 {
@@ -191,4 +199,8 @@
 
 .post td {
 	vertical-align: top;
+}
+
+.post li {
+	list-style-type: disc;
 }
