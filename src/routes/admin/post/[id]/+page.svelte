@@ -102,7 +102,7 @@
 			bind:value={values.plainBody}
 			label="内容"
 			error={errors.plainBody}
-			rows={20}
+			rows={30}
 		/>
 		<PostContent html={htmlBody} className="border bg-white w-6/12 pt-2 px-4" />
 	</div>
