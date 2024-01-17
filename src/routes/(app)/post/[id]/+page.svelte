@@ -4,6 +4,7 @@
 	import type { UserModel } from '$model/user';
 	import { authorsStore } from '$modules/store/store';
 	import PostContent from '$lib/post/PostContent.svelte';
+	import { siteTitle } from '$modules/config/config';
 
 	export let data: {
 		post: PostModel;
@@ -27,7 +28,7 @@
 </script>
 
 <svelte:head>
-	<title>{post.title}</title>
+	<title>{post.title} - {siteTitle}</title>
 </svelte:head>
 <div class="mx-auto w-11/12">
 	<div class="px-4 md:px-10 py-6 bg-white rounded-lg shadow-md">

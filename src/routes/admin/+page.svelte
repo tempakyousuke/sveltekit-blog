@@ -14,6 +14,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>執筆者メニュー</title>
+</svelte:head>
+
 <div class="px-6 py-8">
 	<div class="container flex justify-between mx-auto">
 		<div class="w-full">

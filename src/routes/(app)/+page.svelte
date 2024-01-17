@@ -3,6 +3,7 @@
 	// import Pagination from '$lib/pagination/Pagination.svelte';
 	import type { PostModel } from '$model/post';
 	import type { UserModel } from '$model/user';
+	import { siteTitle } from '$modules/config/config';
 
 	export let data: {
 		posts: PostModel[];
@@ -17,7 +18,7 @@
 </script>
 
 <svelte:head>
-	<title>トップページ</title>
+	<title>{siteTitle}</title>
 </svelte:head>
 
 <div class="max-w-4xl mx-auto">
