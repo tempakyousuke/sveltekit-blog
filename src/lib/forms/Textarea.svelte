@@ -19,7 +19,7 @@
 	};
 </script>
 
-<div class="flex justify-center items-center {className}">
+<div class="flex justify-center items-start {className}">
 	<div class="relative w-full" class:empty={!placeholder && value === ''}>
 		<textarea
 			class="w-full border-gray-300 p-2 transition-all border-blue rounded"
