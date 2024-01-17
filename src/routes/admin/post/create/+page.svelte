@@ -81,7 +81,7 @@
 			user.increaseCount();
 		}
 		const postRef = await addDoc(collection(db, 'posts'), data);
-		await postToSlack(`https://blog-893dd.web.app/post/${postRef.id}`);
+		await postToSlack(postRef.id);
 		goto('/admin');
 	};
 
