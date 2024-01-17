@@ -116,7 +116,7 @@ export class PostModel {
 			modified: serverTimestamp()
 		});
 		if (isFirstPost) {
-			await postToSlack(`https://blog-893dd.web.app/post/${this.id}`);
+			await postToSlack(this.id);
 		}
 	}
 }
