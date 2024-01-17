@@ -1,9 +1,10 @@
 import { db } from '$modules/firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { siteUrl } from '$modules/config/config';
+
 export async function postToSlack(postId: string) {
 	try {
-		// TODO どこかにurl定義する
-		const articleUrl = `https://blog-893dd.web.app/post/${postId}`;
+		const articleUrl = `${siteUrl}/post/${postId}`;
 		const webhookDoc = await getDoc(doc(db, 'config', 'SlackWebhookUrl'));
 		const data = webhookDoc.data();
 		if (data === undefined) {
