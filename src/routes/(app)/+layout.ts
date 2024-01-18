@@ -4,8 +4,6 @@ import { query, where, collection, getDocs, limit, orderBy } from 'firebase/fire
 import { db } from '$modules/firebase/firebase';
 import { authorsStore } from '$modules/store/store';
 
-export const ssr = false;
-
 export async function load() {
 
   const q = query(collection(db, 'posts'), where('status', '==', 'public'), orderBy('modified', 'desc'), limit(1));
