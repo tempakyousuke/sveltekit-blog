@@ -8,6 +8,7 @@
 	import { goto } from '$app/navigation';
 	import { toast } from '$modules/toast/toast';
 	import { siteTitle } from '$modules/config/config';
+	import { page } from '$app/stores';
 
 	let values = {
 		email: '',
@@ -67,10 +68,21 @@
 				toast.error(error.message);
 			});
 	};
+
+	const title = `Sign In - ${siteTitle}`;
+	const description = `Sign Inページです。`;
+	const currentPageUrl = $page.url.href;
 </script>
 
 <svelte:head>
-	<title>Sign In - {siteTitle}</title>
+	<title>{title}</title>
+	<meta name="”description“" content={description} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:url" content={currentPageUrl} />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={title} />
+	<meta name="twitter:description" content={description} />
 </svelte:head>
 
 <div class="min-w-md flex justify-center items-center self-center pt-20">

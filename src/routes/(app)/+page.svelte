@@ -3,7 +3,7 @@
 	// import Pagination from '$lib/pagination/Pagination.svelte';
 	import type { PostModel } from '$model/post';
 	import type { UserModel } from '$model/user';
-	import { siteTitle } from '$modules/config/config';
+	import { siteTitle, siteUrl } from '$modules/config/config';
 
 	export let data: {
 		posts: PostModel[];
@@ -15,10 +15,18 @@
 	const getAuthor = (id: string) => {
 		return authors.find((author) => author.id == id);
 	};
+	const description = 'SvelteKitとFirebaseで作った技術ブログ的なものです。';
 </script>
 
 <svelte:head>
 	<title>{siteTitle}</title>
+	<meta name="”description“" content={description} />
+	<meta property="og:title" content={siteTitle} />
+	<meta property="og:description" content={description} />
+	<meta property="og:url" content={siteUrl} />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={siteTitle} />
+	<meta name="twitter:description" content={description} />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto">
